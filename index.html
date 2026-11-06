@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Awacak · observation 0-5 ans</title>
+<meta name="theme-color" content="#E0782F">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="img/icon-192.png">
+<link rel="apple-touch-icon" href="img/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Awacak">
+<style>
+:root{--or:#E0782F;--or2:#F6D2B4;--or3:#FDF1E6;--ink:#2a2622;--mut:#7a716a;--line:#EADFD3;--bg:#FFFBF6;--ok:#4E8A5C;--y:#F2C335;--red:#C9573F;--font:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+*{box-sizing:border-box}html,body{margin:0}body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.45;-webkit-text-size-adjust:100%}
+header.top{position:sticky;top:0;z-index:30;background:var(--or);color:#fff;display:flex;align-items:center;gap:10px;padding:calc(8px + env(safe-area-inset-top)) 14px 8px}
+header.top a{color:#fff;text-decoration:none}header.top .brand{display:flex;align-items:center;gap:8px;font-weight:700;font-size:1.15rem}header.top .brand img{width:30px;height:30px;border-radius:8px;background:#fff2}
+header.top .sp{flex:1}header.top .ic{font-size:1.25rem;padding:4px 6px}
+main{max-width:860px;margin:0 auto;padding:12px 14px 110px}
+h2{font-size:1.35rem;margin:6px 0 10px}h3{font-size:1.1rem;margin:0 0 8px}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;margin:12px 0}
+.muted{color:var(--mut)}.small{font-size:.86rem}.tiny{font-size:.76rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1.5px solid var(--line);background:#fff;color:var(--ink);border-radius:999px;padding:9px 16px;font:inherit;font-weight:600;cursor:pointer;text-decoration:none;min-height:42px}
+.btn.primary{background:var(--or);border-color:var(--or);color:#fff}.btn.small{padding:5px 12px;min-height:34px;font-size:.88rem}.btn.ghost{border-color:transparent;background:transparent}.btn.danger{color:var(--red);border-color:#f0c9bf}
+.btn:disabled{opacity:.45;cursor:default}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.sb{justify-content:space-between}
+.field{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;font:inherit;background:#fff;color:var(--ink)}textarea.field{min-height:90px;resize:vertical}
+label.f{display:block;margin:8px 0;font-weight:600;font-size:.9rem}label.f .field{margin-top:4px;font-weight:400}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}.chip{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:6px 12px;font:inherit;font-size:.88rem;cursor:pointer;color:var(--ink)}.chip.on{background:var(--or);border-color:var(--or);color:#fff;font-weight:600}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:4px 0 8px;margin:0 -14px;padding-left:14px;padding-right:14px;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}
+.tab{flex:none;border:0;background:var(--or3);color:var(--ink);border-radius:999px;padding:8px 14px;font:inherit;font-weight:600;font-size:.9rem;cursor:pointer;text-decoration:none}.tab.on{background:var(--or);color:#fff}
+.kids{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.kid{background:#fff;border:1px solid var(--line);border-radius:16px;padding:10px;text-align:center;text-decoration:none;color:var(--ink);display:block}.kid img{width:64px;height:64px;object-fit:contain}.kid b{display:block;font-size:1.02rem}.kid .tiny{display:block}
+.pres{display:flex;gap:8px;flex-wrap:wrap}.pk{border:2px solid var(--line);background:#fff;border-radius:999px;padding:3px 10px 3px 3px;display:flex;align-items:center;gap:5px;font:inherit;font-size:.86rem;cursor:pointer}.pk img{width:28px;height:28px}.pk.on{border-color:var(--ok);background:#E7F2E6;font-weight:600}
+.avatar{width:72px;height:72px;object-fit:contain}
+.head{display:flex;gap:12px;align-items:center}.head .nm{font-size:1.4rem;font-weight:700;line-height:1.2}
+.rep{border:1px solid var(--line);border-radius:14px;padding:10px 12px;margin:8px 0;background:#fff}
+.rep .rt{font-weight:600;line-height:1.35}.mom{display:inline-block;font-size:.72rem;font-weight:600;color:#8a5a2b;background:var(--or3);border-radius:999px;padding:1px 8px;margin-left:4px;vertical-align:1px}
+.lvls{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px}.lv{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:6px 4px;font:inherit;font-size:.82rem;font-weight:600;cursor:pointer;color:var(--ink)}
+.lv.l1.on{background:#FFF1C9;border-color:var(--y);color:#7a5a00}.lv.l2.on{background:#FBE0CB;border-color:var(--or);color:#8a3f0b}.lv.l3.on{background:#E2F0E0;border-color:var(--ok);color:#2f5e3a}
+.rep details{margin-top:6px}.rep summary{cursor:pointer;font-size:.82rem;color:var(--mut)}.aide{font-size:.86rem;margin:6px 0}
+.hist{font-size:.78rem;color:var(--mut);margin-top:4px}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:3px;vertical-align:0}
+.d1{background:var(--y)}.d2{background:var(--or)}.d3{background:var(--ok)}
+.bandbar{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 2px}
+.entry{border-top:1px solid var(--line);padding:8px 0;display:flex;gap:8px;align-items:flex-start}.entry:first-child{border-top:0}.entry .when{font-size:.76rem;color:var(--mut);white-space:nowrap;min-width:52px;padding-top:2px}.entry .txt{flex:1;font-size:.92rem}.entry .where{display:block;font-size:.74rem;color:#8a5a2b}
+.x{border:0;background:none;color:var(--mut);font-size:1rem;cursor:pointer;padding:2px 6px}
+.pas{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:14px;padding:10px;margin:8px 0;background:#fff}.pas .st{flex:none;border:0;border-radius:999px;padding:5px 10px;font:inherit;font-size:.76rem;font-weight:700;cursor:pointer}
+.st.cours{background:#FFF1C9;color:#7a5a00}.st.fait{background:#E2F0E0;color:#2f5e3a}.pas .tx{flex:1}.pas .tx b{display:block}.pas .tx .tiny{color:var(--mut)}
+.sug{display:flex;flex-direction:column;align-items:flex-start;text-align:left;border:1.5px dashed var(--or2);background:var(--or3);border-radius:12px;padding:7px 10px;margin:5px 0;font:inherit;font-size:.86rem;cursor:pointer;width:100%;color:var(--ink)}.sug small{color:var(--mut);font-size:.74rem}
+.wheelwrap{position:relative;width:100%;max-width:420px;aspect-ratio:1;margin:6px auto}.wheelwrap svg{position:absolute;inset:0;width:100%;height:100%}
+.q{position:absolute;display:flex;flex-wrap:wrap;gap:4px;align-content:center;justify-content:center;overflow:hidden}
+.qn{left:22%;right:22%;top:6%;height:24%}.qs{left:22%;right:22%;bottom:6%;height:24%}.qe{right:4%;top:30%;width:24%;height:40%}.qw{left:4%;top:30%;width:24%;height:40%}
+.k{background:rgba(255,255,255,.94);border:0;border-radius:999px;padding:2px 8px;font:inherit;font-weight:700;color:#2a2622;cursor:pointer;line-height:1.2}.k.defi{outline:2px dashed #C9573F;outline-offset:-2px}
+.wc{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:24%;text-align:center;font-weight:700;font-size:.85rem;line-height:1.15}
+.wi{position:absolute;width:9%;z-index:2}.wi.n{left:50%;top:30.5%;transform:translateX(-50%)}.wi.s{left:50%;bottom:30.5%;transform:translateX(-50%)}.wi.e{right:30.5%;top:50%;transform:translateY(-50%)}.wi.w{left:30.5%;top:50%;transform:translateY(-50%)}
+.leg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;text-align:center;font-size:.74rem;margin-top:6px}.leg img{width:34px;height:34px}.leg b{display:block;font-size:.82rem}
+.thumbs{display:flex;gap:6px;flex-wrap:wrap}.thumb{width:72px;height:72px;border-radius:10px;overflow:hidden;border:1px solid var(--line);padding:0;background:#eee;cursor:pointer}.thumb img{width:100%;height:100%;object-fit:cover}
+.notice{background:var(--or3);border:1px solid var(--or2);border-radius:12px;padding:10px 12px;font-size:.9rem;margin:8px 0}
+.inbox{border-left:5px solid var(--y)}
+.cnt{display:inline-block;background:var(--or);color:#fff;border-radius:999px;font-size:.75rem;font-weight:700;padding:1px 8px;margin-left:4px}
+details.sec>summary{cursor:pointer;list-style:none;font-weight:700;font-size:1.05rem}details.sec>summary::-webkit-details-marker{display:none}details.sec>summary::before{content:"▸ ";color:var(--or)}details.sec[open]>summary::before{content:"▾ "}
+#ov{position:fixed;inset:0;z-index:50;background:rgba(40,30,20,.45);display:none;align-items:flex-end;justify-content:center}#ov.on{display:flex}
+.sheet{background:var(--bg);width:100%;max-width:640px;max-height:92vh;overflow:auto;border-radius:20px 20px 0 0;padding:16px 16px calc(18px + env(safe-area-inset-bottom))}
+.sheet h3{font-size:1.2rem}
+#toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);z-index:60;background:#2a2622;color:#fff;border-radius:999px;padding:9px 16px;font-size:.9rem;display:none;max-width:90vw;text-align:center}
+.fab{position:fixed;right:16px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:40;display:flex;align-items:center;gap:6px;border:1.5px solid #C99A1E;border-radius:999px;padding:12px 16px;background:var(--y);color:#2a2622;font:inherit;font-weight:700;font-size:.9rem;box-shadow:0 4px 14px rgba(0,0,0,.22);cursor:pointer}
+.mic{display:inline-flex;align-items:center;gap:4px}.mic.rec{background:#C9573F;color:#fff;border-color:#C9573F}
+.list{max-height:40vh;overflow:auto;border:1px solid var(--line);border-radius:12px;padding:2px 10px;background:#fff}.li{display:flex;gap:8px;padding:7px 0;border-bottom:1px solid var(--line);font-size:.88rem}.li:last-child{border-bottom:0}
+.empty{text-align:center;padding:20px 10px;color:var(--mut)}
+.hero{text-align:center;padding:10px 0}.hero img{width:150px}
+@media(min-width:700px){.lvls{max-width:420px}}
+</style>
+</head>
+<body>
+<header class="top"><a class="brand" href="#accueil"><img src="img/icon-192.png" alt="">Awacak</a><span class="sp"></span><a class="ic" href="#parametres" aria-label="Paramètres">⚙︎</a></header>
+<main id="main"></main>
+<div id="ov"><div class="sheet" id="sheet"></div></div>
+<div id="toast"></div>
+<button class="fab" id="fab" style="display:none" aria-label="Note rapide"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>Note rapide</button>
+<script src="reperes.js"></script>
+<script>
+"use strict";
+/* ---------- Référentiel ---------- */
+const SUBS={mg:{dom:"phys",nom:"Motricité globale"},mf:{dom:"phys",nom:"Motricité fine"},sp:{dom:"phys",nom:"Soins personnels"},se:{dom:"phys",nom:"Sensoriel"},co:{dom:"cog",nom:"Cognitif"},la:{dom:"lang",nom:"Langagier"},so:{dom:"soc",nom:"Social et affectif"}};
+const DOMS={phys:{nom:"Physique et moteur",court:"Physique",subs:["mg","mf","sp","se"],sph:"corps"},cog:{nom:"Cognitif",court:"Cognitif",subs:["co"],sph:"tete"},lang:{nom:"Langagier",court:"Langagier",subs:["la"],sph:"tete"},soc:{nom:"Social et affectif",court:"Social",subs:["so"],sph:"coeur"}};
+const BANDS=["0-12 mois","1-2 ans","2-3 ans","3-4 ans","4-5 ans"];
+const MOM={A:"Arrivée",J:"Jeu libre",C:"Collation",H:"Habillage",D:"Dehors",R:"Cercle",T:"Transitions",S:"Soins",P:"Départ"};
+const SPH={tete:{nom:"Tête",d:"comprendre, langage",col:"#F7F4EC"},esprit:{nom:"Esprit",d:"liens, vie sociale",col:"#F2C335"},coeur:{nom:"Cœur",d:"émotions, confiance",col:"#D63B3F"},corps:{nom:"Corps",d:"bouger, sentir, soins",col:"#2E2E2E"}};
+const LV={1:"Commence",2:"En voie",3:"Acquis"};
+const AVATARS=["renard","castor","ours","lievre","hibou","loup","cerf","raton","herisson","ecureuil"];
+const AIS={claude:{nom:"Claude",url:"https://claude.ai/new"},chatgpt:{nom:"ChatGPT",url:"https://chatgpt.com/"},gemini:{nom:"Gemini",url:"https://gemini.google.com/app"}};
+const REP=[];const REPI={};
+(()=>{const cnt={};REP_RAW.forEach(([sub,b,t,m,a,sph])=>{const k=sub+b;cnt[k]=(cnt[k]||0)+1;const id=sub+b+"-"+cnt[k];const r={id,sub,dom:SUBS[sub].dom,band:b,t,m,a,sph0:sph||DOMS[SUBS[sub].dom].sph};REP.push(r);REPI[id]=r})})();
+/* ---------- Utilitaires ---------- */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const uid=p=>(p||"x")+Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+const todayISO=()=>{const d=new Date();d.setMinutes(d.getMinutes()-d.getTimezoneOffset());return d.toISOString().slice(0,10)};
+const MOIS=["janv.","févr.","mars","avr.","mai","juin","juil.","août","sept.","oct.","nov.","déc."];const MOISL=["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
+const fmtD=(d,long)=>{if(!d)return "";const [y,m,j]=d.split("-").map(Number);return long?`${j} ${MOISL[m-1]} ${y}`:`${j} ${MOIS[m-1]}`};
+const norm=s=>String(s||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]+/g," ").trim();
+function ageMonths(dob,at){if(!dob)return null;const a=new Date(dob+"T12:00"),b=new Date((at||todayISO())+"T12:00");let m=(b.getFullYear()-a.getFullYear())*12+(b.getMonth()-a.getMonth());if(b.getDate()<a.getDate())m--;return m}
+function ageLabel(dob){const m=ageMonths(dob);if(m==null)return "";if(m<24)return m+" mois";const y=Math.floor(m/12),r=m%12;return y+" an"+(y>1?"s":"")+(r?" "+r+" mois":"")}
+function bandOf(c){const m=ageMonths(c.dob);if(m==null)return c.band!=null?c.band:2;return m<12?0:m<24?1:m<36?2:m<48?3:4}
+function toast(t){const e=$("#toast");e.textContent=t;e.style.display="block";clearTimeout(toast.t);toast.t=setTimeout(()=>e.style.display="none",2600)}
+function img(n){return "img/"+n+".png"}
+function sphOf(r){return (S.settings.sph||{})[r.id]||r.sph0}
+/* ---------- Stockage (IndexedDB, nom propre à Awacak) ---------- */
+const DBN="awacak-db";let db=null;
+function idb(){return new Promise((res,rej)=>{const q=indexedDB.open(DBN,1);q.onupgradeneeded=()=>{const d=q.result;if(!d.objectStoreNames.contains("state"))d.createObjectStore("state");if(!d.objectStoreNames.contains("photos"))d.createObjectStore("photos")};q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error)})}
+function tx(store,mode,fn){return new Promise((res,rej)=>{const t=db.transaction(store,mode);const st=t.objectStore(store);const r=fn(st);t.oncomplete=()=>res(r&&r.result!==undefined?r.result:undefined);t.onerror=()=>rej(t.error)})}
+function getP(store,key){return new Promise((res,rej)=>{const r=db.transaction(store).objectStore(store).get(key);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
+function keysP(store){return new Promise((res,rej)=>{const r=db.transaction(store).objectStore(store).getAllKeys();r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
+let S={v:1,groups:{},children:{},settings:{me:"",ai:"claude",sph:{}},meta:{}};
+let saveT=null;function save(){clearTimeout(saveT);saveT=setTimeout(()=>tx("state","readwrite",st=>st.put(JSON.parse(JSON.stringify(S)),"main")).catch(e=>toast("Erreur d'enregistrement")),150)}
+const U={date:todayISO(),sub:{},band:{},allBands:{}};
+const photoURL={};async function phSrc(id){if(photoURL[id])return photoURL[id];const b=await getP("photos",id);if(!b)return "";photoURL[id]=URL.createObjectURL(b);return photoURL[id]}
+function hydrateThumbs(){document.querySelectorAll("img[data-ph]").forEach(async im=>{if(im.src&&!im.src.endsWith("#"))return;im.src=await phSrc(im.dataset.ph)})}
+/* ---------- Données ---------- */
+const kidsOf=gid=>Object.values(S.children).filter(c=>c.groupId===gid).sort((a,b)=>a.name.localeCompare(b.name,"fr"));
+function lvlOf(c,rid){const L=(c.obs||{})[rid]||[];if(!L.length)return 0;return L.slice().sort((a,b)=>a.d.localeCompare(b.d)).pop().l}
+function lvlOn(c,rid,d){const e=((c.obs||{})[rid]||[]).find(x=>x.d===d);return e?e.l:0}
+function setLvl(c,rid,l,d){c.obs=c.obs||{};const L=c.obs[rid]=(c.obs[rid]||[]).filter(x=>x.d!==d);if(l)L.push({d,l});if(!L.length)delete c.obs[rid]}
+function kwAgg(c){const m={};(c.kw||[]).forEach(k=>{const key=norm(k.mot)+"|"+k.sph+"|"+k.t;const e=m[key]=m[key]||{mot:k.mot,sph:k.sph,t:k.t,n:0,last:"",ids:[]};e.n++;e.ids.push(k.id);if((k.date||"")>e.last)e.last=k.date||""});return Object.values(m)}
+function repLabel(rid){const r=REPI[rid];return r?r.t:""}
+function presOf(g,d){return (g.presences||{})[d]||[]}
+/* ---------- Rendu ---------- */
+function route(){const h=location.hash.slice(1)||"accueil";if(h.startsWith("g-"))return {v:"group",gid:h.slice(2)};if(h.startsWith("e-")){const [cid,tab]=h.slice(2).split("--");return {v:"child",cid,tab:tab||"portrait"}}if(h==="parametres")return {v:"settings"};return {v:"home"}}
+function render(){const r=route();let h="";
+  if(r.v==="group"&&S.groups[r.gid])h=viewGroup(r.gid);else if(r.v==="child"&&S.children[r.cid])h=viewChild(r.cid,r.tab);else if(r.v==="settings")h=viewSettings();else h=viewHome();
+  $("#main").innerHTML=h;hydrateThumbs();
+  const g=r.v==="group"?r.gid:r.v==="child"&&S.children[r.cid]?S.children[r.cid].groupId:null;$("#fab").style.display=g?"":"none"}
+window.addEventListener("hashchange",()=>{render();scrollTo(0,0)});
+function viewHome(){const G=Object.values(S.groups);
+  let h=`<div class="hero"><img src="img/enfants.png" alt=""><h2 style="margin:4px 0 0">Awacak</h2><p class="muted small" style="margin:2px 0 0">Observer les enfants de 0 à 5 ans dans leur quotidien</p></div>`;
+  h+=`<section class="card"><h3>Mes groupes</h3>${G.length?`<div class="kids">${G.map(g=>`<a class="kid" href="#g-${g.id}"><img src="img/enfants.png" alt=""><b>${esc(g.name)}</b><span class="tiny muted">${kidsOf(g.id).length} enfant(s)</span></a>`).join("")}</div>`:`<p class="muted">Aucun groupe pour l'instant.</p>`}
+  <div class="row" style="margin-top:10px"><input class="field" id="newG" placeholder="Nom du groupe (ex. : Halte du matin)" style="flex:1 1 200px"><button class="btn primary" data-act="addGroup">Créer</button></div></section>`;
+  const lb=S.meta.lastBackup;
+  h+=`<section class="card"><details class="sec" ${G.length?"":"open"}><summary>Sauvegarde <span class="muted small" style="font-weight:400">${lb?"dernière : "+fmtD(lb.slice(0,10)):"aucune encore"}</span></summary>
+  <p class="small muted">Les données restent sur cet appareil. Faites une sauvegarde régulièrement, et pour échanger avec une collègue.</p>
+  <div class="row"><button class="btn small primary" data-act="backup">Sauvegarde texte</button><button class="btn small" data-act="backupPh">Sauvegarde des photos</button></div>
+  <div class="row" style="margin-top:8px"><label class="btn small">Fusionner une sauvegarde<input type="file" accept=".json,application/json" hidden data-act="mergeFile"></label><label class="btn small danger">Restaurer (remplacer tout)<input type="file" accept=".json,application/json" hidden data-act="restoreFile"></label></div></details></section>`;
+  return h}
+function viewGroup(gid){const g=S.groups[gid];const K=kidsOf(gid);const pr=presOf(g,U.date);
+  let h=`<div class="row sb"><h2 style="margin:0">${esc(g.name)}</h2><button class="btn small ghost" data-act="groupEdit" data-id="${gid}">Réglages</button></div>
+  <label class="f" style="max-width:220px">Date<input type="date" class="field" id="uDate" value="${U.date}"></label>`;
+  h+=inboxHTML(gid);
+  h+=`<section class="card"><h3>Présences du ${fmtD(U.date)} <span class="muted small" style="font-weight:400">· ${pr.length}/${K.length}</span></h3>${K.length?`<div class="pres">${K.map(c=>`<button class="pk${pr.includes(c.id)?" on":""}" data-act="pres" data-id="${c.id}"><img src="${img("avatar-"+(c.avatar||"renard"))}" alt="">${esc(c.name)}</button>`).join("")}</div>`:`<p class="muted small">Ajoutez les enfants plus bas.</p>`}</section>`;
+  h+=`<section class="card"><h3>Les enfants</h3>${K.length?`<div class="kids">${K.map(c=>{const ac=Object.keys(c.obs||{}).filter(r=>lvlOf(c,r)===3).length;const np=(c.pas||[]).filter(p=>p.status!=="fait").length;return `<a class="kid" href="#e-${c.id}"><img src="${img("avatar-"+(c.avatar||"renard"))}" alt=""><b>${esc(c.name)}</b><span class="tiny muted">${esc(ageLabel(c.dob)||BANDS[bandOf(c)])}</span><span class="tiny muted">${ac} acquis · ${np} prochain${np>1?"s":""} pas</span></a>`}).join("")}</div>`:`<p class="muted small">Aucun enfant encore.</p>`}
+  <details class="sec" style="margin-top:12px" ${K.length?"":"open"}><summary>Ajouter des enfants</summary><p class="small muted">Un prénom par ligne. Vous pourrez ajouter la date de naissance ensuite.</p><textarea class="field" id="newKids" placeholder="Léa&#10;Noah&#10;Maïka"></textarea><div class="row" style="margin-top:6px"><button class="btn primary small" data-act="addKids" data-id="${gid}">Ajouter</button></div></details></section>`;
+  h+=`<div class="row" style="justify-content:center;margin:8px 0"><button class="btn" data-act="notesMenu" data-id="${gid}">Notes : exporter et importer</button></div>`;
+  return h}
+function inboxHTML(gid){const g=S.groups[gid];const L=(g.inbox||[]).slice().sort((a,b)=>(a.at||"").localeCompare(b.at||""));if(!L.length)return "";
+  return `<section class="card inbox"><details class="sec" open><summary>À classer <span class="cnt">${L.length}</span></summary><div style="margin-top:6px">${L.map(q=>`<div class="entry"><span class="when">${fmtD(q.date)}</span><span class="txt">${q.kids&&q.kids.length?`<b>${q.kids.map(k=>esc((S.children[k]||{}).name||"?")).join(", ")}</b> · `:""}${q.moment?`<span class="mom">${esc(MOM[q.moment]||"")}</span> `:""}${esc(q.text)}</span><button class="btn small" data-act="qSort" data-id="${gid}" data-q="${q.id}">Classer</button><button class="x" data-act="qDel" data-id="${gid}" data-q="${q.id}" aria-label="Supprimer">✕</button></div>`).join("")}</div>
+  <p class="tiny muted" style="margin:6px 0 0">Plus simple : en bas de la page, « Exporter mes notes du jour » envoie tout à votre IA, qui reclasse.</p></details></section>`}
+function viewChild(cid,tab){const c=S.children[cid];const g=S.groups[c.groupId]||{};const b=bandOf(c);
+  let h=`<a class="small" href="#g-${c.groupId}" style="color:var(--or);text-decoration:none">← ${esc(g.name||"Groupe")}</a>
+  <div class="head" style="margin:8px 0"><img class="avatar" src="${img("avatar-"+(c.avatar||"renard"))}" alt=""><div style="flex:1"><div class="nm">${esc(c.name)}</div><div class="small muted">${esc(ageLabel(c.dob)||"âge à préciser")} · repères ${BANDS[b]}</div></div><button class="btn small ghost" data-act="kidEdit" data-id="${cid}" aria-label="Réglages">⚙︎</button></div>
+  <div class="row small muted" style="margin:-4px 0 6px">Date d'observation <input type="date" class="field" id="uDate" value="${U.date}" style="width:auto;padding:4px 8px"></div>
+  <nav class="tabs">${[["portrait","Portrait"],...Object.entries(DOMS).map(([k,d])=>[k,d.court])].map(([k,n])=>`<a class="tab${tab===k?" on":""}" href="#e-${cid}--${k}">${n}</a>`).join("")}</nav>`;
+  if(tab==="portrait")return h+viewPortrait(cid,c);
+  return h+viewDom(cid,c,tab)}
+function viewDom(cid,c,dk){const D=DOMS[dk];if(!D)return "";const sub=D.subs.includes(U.sub[dk])?U.sub[dk]:D.subs[0];const cb=bandOf(c);const key=cid+dk;const bsel=U.band[key]!=null?U.band[key]:cb;
+  let h=`<h2 style="margin:6px 0 2px">${D.nom}</h2>`;
+  if(D.subs.length>1)h+=`<div class="chips">${D.subs.map(s=>`<button class="chip${s===sub?" on":""}" data-act="sub" data-d="${dk}" data-s="${s}">${SUBS[s].nom}</button>`).join("")}</div>`;
+  h+=`<div class="bandbar">${BANDS.map((n,i)=>`<button class="chip${i===bsel?" on":""}" data-act="band" data-k="${key}" data-b="${i}">${n}${i===cb?" ·":""}</button>`).join("")}</div><p class="tiny muted" style="margin:0 0 4px">Le point (·) indique la tranche de son âge. Touchez un niveau pour la date du ${fmtD(U.date)} ; touchez-le encore pour l'enlever.</p>`;
+  const L=REP.filter(r=>r.sub===sub&&r.band===bsel);
+  h+=L.map(r=>repHTML(cid,c,r)).join("")||`<p class="empty">Aucun repère.</p>`;
+  const other=REP.filter(r=>r.sub===sub&&r.band!==bsel&&lvlOf(c,r.id));
+  if(other.length)h+=`<details class="sec card"><summary>Déjà observés dans d'autres tranches (${other.length})</summary>${other.map(r=>repHTML(cid,c,r,true)).join("")}</details>`;
+  return h}
+function repHTML(cid,c,r,showBand){const now=lvlOn(c,r.id,U.date);const last=lvlOf(c,r.id);const H=((c.obs||{})[r.id]||[]).slice().sort((a,b)=>b.d.localeCompare(a.d));const nN=(c.notes||[]).filter(n=>n.rep===r.id).length;
+  return `<div class="rep"><div class="rt">${esc(r.t)} <span class="mom">${MOM[r.m]||""}</span>${showBand?` <span class="tiny muted">${BANDS[r.band]}</span>`:""}</div>
+  <div class="lvls">${[1,2,3].map(l=>`<button class="lv l${l}${now===l?" on":""}${!now&&last===l?" on":""}" style="${!now&&last===l?"opacity:.55":""}" data-act="lv" data-id="${cid}" data-r="${r.id}" data-l="${l}">${LV[l]}</button>`).join("")}</div>
+  <details><summary>Ce qui peut aider${H.length?" · historique":""}${nN?" · "+nN+" note"+(nN>1?"s":""):""}</summary><div class="aide">${esc(r.a)}</div>
+  <div class="row"><button class="btn small" data-act="pasFromRep" data-id="${cid}" data-r="${r.id}">+ Prochain pas</button><button class="btn small" data-act="noteRep" data-id="${cid}" data-r="${r.id}">✎ Note</button></div>
+  ${H.length?`<div class="hist">${H.map(e=>`<span style="margin-right:8px"><i class="dot d${e.l}"></i>${fmtD(e.d)} ${LV[e.l]}</span>`).join("")}</div>`:""}
+  ${nN?`<div style="margin-top:4px">${(c.notes||[]).filter(n=>n.rep===r.id).sort((a,b)=>b.date.localeCompare(a.date)).slice(0,4).map(n=>`<div class="tiny">${fmtD(n.date)} · ${esc(n.text)}</div>`).join("")}</div>`:""}</details></div>`}
+function wheelHTML(c){const A=kwAgg(c);const max=Math.max(1,...A.map(x=>x.n));const by={tete:[],esprit:[],coeur:[],corps:[]};A.forEach(x=>{if(by[x.sph])by[x.sph].push(x)});
+  const pos={tete:"qn",esprit:"qe",coeur:"qs",corps:"qw"};const C=300,R=292,ri=90;
+  const sec=(a0,a1,fill)=>{const p=(a,r)=>[C+r*Math.cos(a*Math.PI/180),C+r*Math.sin(a*Math.PI/180)];const [x0,y0]=p(a0,R),[x1,y1]=p(a1,R),[x2,y2]=p(a1,ri),[x3,y3]=p(a0,ri);return `<path d="M${x0},${y0} A${R},${R} 0 0 1 ${x1},${y1} L${x2},${y2} A${ri},${ri} 0 0 0 ${x3},${y3} Z" fill="${fill}" stroke="#222" stroke-width="3"/>`};
+  const svg=`<svg viewBox="0 0 600 600">${sec(-135,-45,SPH.tete.col)}${sec(-45,45,SPH.esprit.col)}${sec(45,135,SPH.coeur.col)}${sec(135,225,SPH.corps.col)}<circle cx="300" cy="300" r="${ri}" fill="#fff" stroke="#222" stroke-width="3"/></svg>`;
+  const pills=Object.entries(by).map(([k,L])=>`<div class="q ${pos[k]}">${L.sort((a,b)=>b.n-a.n).slice(0,9).map(x=>`<button class="k${x.t==="defi"?" defi":""}" style="font-size:${(0.7+0.45*x.n/max).toFixed(2)}rem" data-act="kwOpen" data-id="${c.id}" data-m="${esc(x.mot)}" data-s="${x.sph}" data-t="${x.t}">${esc(x.mot)}</button>`).join("")}</div>`).join("");
+  const ic=Object.entries({tete:"n",esprit:"e",coeur:"s",corps:"w"}).map(([k,p])=>`<img class="wi ${p}" src="img/sph-${k}.webp" alt="">`).join("");
+  return `<div class="wheelwrap">${svg}${pills}${ic}<div class="wc">${esc(c.name)}</div></div>`}
+function sphCounts(c){const n={tete:0,esprit:0,coeur:0,corps:0};Object.keys(c.obs||{}).forEach(rid=>{const r=REPI[rid];if(r&&lvlOf(c,rid)===3)n[sphOf(r)]++});return n}
+function suggestions(c){const out=[];const have=new Set((c.pas||[]).map(p=>norm(p.text)));
+  REP.filter(r=>lvlOf(c,r.id)===1||(lvlOf(c,r.id)===2)).sort((a,b)=>lvlOf(c,a.id)-lvlOf(c,b.id)).forEach(r=>{const t="Offrir : "+r.a.split(",")[0].trim().replace(/^./,x=>x.toLowerCase());if(!have.has(norm(t))&&out.length<5)out.push({t,rep:r.id,why:(lvlOf(c,r.id)===1?"commence":"en voie")+" · "+r.t})});
+  kwAgg(c).filter(x=>x.t==="defi").sort((a,b)=>b.n-a.n).slice(0,3).forEach(x=>{const t="Soutenir : "+x.mot;if(!have.has(norm(t)))out.push({t,rep:"",why:"défi noté "+x.n+" fois · "+SPH[x.sph].nom})});
+  return out.slice(0,7)}
+function viewPortrait(cid,c){const g=S.groups[c.groupId]||{};const nPres=Object.values(g.presences||{}).filter(L=>L.includes(cid)).length;const A=kwAgg(c);const forces=A.filter(x=>x.t==="force").sort((a,b)=>b.n-a.n).slice(0,4);const pasOn=(c.pas||[]).filter(p=>p.status!=="fait");
+  let h=`<section class="card"><h3>En bref</h3><div class="small" style="display:grid;gap:4px">
+  ${c.interets?`<div><b>Ce qui l'allume :</b> ${esc(c.interets)}</div>`:""}${forces.length?`<div><b>Forces :</b> ${forces.map(x=>esc(x.mot)).join(", ")}</div>`:""}
+  ${pasOn.length?`<div><b>Prochains pas :</b> ${pasOn.map(p=>esc(p.text)).join(" · ")}</div>`:""}${c.langues?`<div><b>Langues :</b> ${esc(c.langues)}</div>`:""}
+  <div class="muted">${nPres} présence${nPres>1?"s":""} notée${nPres>1?"s":""}</div></div>
+  <div class="row" style="margin-top:10px"><button class="btn small primary" data-act="portraitP" data-id="${cid}">Portrait périodique</button></div></section>`;
+  const sc=sphCounts(c);
+  h+=`<section class="card"><h3>Roue de la médecine</h3><p class="tiny muted" style="margin:0">Forces et défis par sphère. Plus gros = revient souvent ; pointillé rouge = défi. Touchez un mot pour le modifier.</p>${wheelHTML(c)}
+  <div class="leg">${Object.entries(SPH).map(([k,s])=>`<div><img src="img/sph-${k}.webp" alt=""><b>${s.nom}</b>${s.d}<br><span class="muted">${sc[k]} acquis</span></div>`).join("")}</div>
+  <div class="row" style="margin-top:10px"><input class="field" id="kwM" placeholder="Mot-clé (ex. : persévérant)" style="flex:1 1 140px"><select class="field" id="kwS" style="width:auto">${Object.entries(SPH).map(([k,s])=>`<option value="${k}">${s.nom}</option>`).join("")}</select><select class="field" id="kwT" style="width:auto"><option value="force">Force</option><option value="defi">Défi</option></select><button class="btn small primary" data-act="kwAdd" data-id="${cid}">Ajouter</button></div></section>`;
+  const sug=suggestions(c);
+  h+=`<section class="card"><h3>Prochains pas</h3><p class="tiny muted" style="margin:0 0 4px">1 à 3 à la fois : ce qu'on va lui offrir pour l'aider à avancer. Touchez l'état pour passer de « en cours » à « fait ».</p>
+  ${(c.pas||[]).slice().sort((a,b)=>(a.status==="fait")-(b.status==="fait")||(b.date||"").localeCompare(a.date||"")).map(p=>{const ln=(p.notes||[]).slice(-1)[0];return `<div class="pas"><button class="st ${p.status==="fait"?"fait":"cours"}" data-act="pasSt" data-id="${cid}" data-p="${p.id}">${p.status==="fait"?"Fait":"En cours"}</button><div class="tx"><b>${esc(p.text)}</b>${p.rep?`<span class="tiny">${esc(repLabel(p.rep))}</span>`:""}${ln?`<div class="tiny" style="font-style:italic">« ${esc(ln.text)} » · ${fmtD(ln.date)}</div>`:""}</div><button class="x" data-act="pasNote" data-id="${cid}" data-p="${p.id}" aria-label="Note">✎</button><button class="x" data-act="pasDel" data-id="${cid}" data-p="${p.id}" aria-label="Retirer">✕</button></div>`}).join("")||`<p class="muted small">Aucun prochain pas.</p>`}
+  <div class="row"><input class="field" id="pasT" placeholder="Ex. : offrir des jeux de transvasement" style="flex:1 1 180px"><button class="btn small primary" data-act="pasAdd" data-id="${cid}">Ajouter</button></div>
+  ${sug.length?`<details class="sec" style="margin-top:8px"><summary>Suggestions (${sug.length})</summary>${sug.map(s=>`<button class="sug" data-act="pasSug" data-id="${cid}" data-t="${esc(s.t)}" data-r="${s.rep}"><span>+ ${esc(s.t)}</span><small>${esc(s.why)}</small></button>`).join("")}</details>`:""}</section>`;
+  const N=(c.notes||[]).slice().sort((a,b)=>(b.date+b.id).localeCompare(a.date+a.id));
+  h+=`<section class="card"><div class="row sb"><h3 style="margin:0">Notes</h3><button class="btn small" data-act="noteAdd" data-id="${cid}">✎ Ajouter</button></div>${N.length?N.slice(0,12).map(n=>`<div class="entry"><span class="when">${fmtD(n.date)}</span><span class="txt">${esc(n.text)}<span class="where">${[n.dom?DOMS[n.dom].court:"",n.rep?repLabel(n.rep):"",n.moment?MOM[n.moment]:""].filter(Boolean).map(esc).join(" · ")}</span></span><button class="x" data-act="noteDel" data-id="${cid}" data-n="${n.id}" aria-label="Supprimer">✕</button></div>`).join("")+(N.length>12?`<p class="tiny muted">+ ${N.length-12} notes plus anciennes</p>`:""):`<p class="muted small">Aucune note.</p>`}</section>`;
+  const P=(c.photos||[]).slice().sort((a,b)=>(b.d||"").localeCompare(a.d||""));
+  h+=`<section class="card"><div class="row sb"><h3 style="margin:0">Photos</h3><label class="btn small">📷 Ajouter<input type="file" accept="image/*" hidden data-act="photoAdd" data-id="${cid}"></label></div>${P.length?`<div class="thumbs" style="margin-top:8px">${P.map(p=>`<button class="thumb" data-act="photoView" data-id="${cid}" data-p="${p.id}"><img data-ph="${p.id}" alt=""></button>`).join("")}</div>`:`<p class="muted small">Aucune photo.</p>`}</section>`;
+  return h}
+function viewSettings(){const st=S.settings;
+  let h=`<h2>Paramètres</h2><section class="card"><label class="f">Votre nom (pour signer le portrait)<input class="field" id="setMe" value="${esc(st.me||"")}"></label>
+  <label class="f">Votre IA<select class="field" id="setAI">${Object.entries(AIS).map(([k,a])=>`<option value="${k}" ${st.ai===k?"selected":""}>${a.nom}</option>`).join("")}</select></label></section>`;
+  h+=`<section class="card"><details class="sec"><summary>Sphère de chaque repère dans la roue</summary><p class="small muted">Chaque repère compte dans une sphère de la roue de la médecine. Changez-la au besoin.</p>
+  ${Object.entries(SUBS).map(([sk,s])=>`<details class="sec" style="margin:8px 0"><summary style="font-size:.95rem">${s.nom}</summary>${REP.filter(r=>r.sub===sk).map(r=>`<div class="li"><span style="flex:1"><span class="tiny muted">${BANDS[r.band]}</span><br>${esc(r.t)}</span><select class="field" style="width:auto" data-sphr="${r.id}">${Object.entries(SPH).map(([k,x])=>`<option value="${k}" ${sphOf(r)===k?"selected":""}>${x.nom}</option>`).join("")}</select></div>`).join("")}</details>`).join("")}</details></section>`;
+  h+=`<section class="card"><details class="sec"><summary>Installer sur le téléphone</summary><p class="small">Android : menu ⋮ de Chrome › « Installer l'application ». iPhone : dans Safari, Partager › « Sur l'écran d'accueil ». Ouvrez ensuite Awacak à partir de l'icône.</p></details></section>
+  <p class="tiny muted" style="text-align:center">Awacak · repères inspirés de Naître et grandir, du carnet Agir tôt et du dossier éducatif du ministère de la Famille. Ce n'est pas un outil diagnostique.</p>`;
+  return h}
+/* ---------- Feuilles ---------- */
+let sheetCb=null;function openSheet(html,cb){$("#sheet").innerHTML=html;$("#ov").classList.add("on");if(cb)cb($("#sheet"));const t=$("#sheet").querySelector("[autofocus]");if(t)setTimeout(()=>t.focus(),60)}
+function closeSheet(){stopRec();$("#ov").classList.remove("on");$("#sheet").innerHTML=""}
+$("#ov").addEventListener("click",e=>{if(e.target.id==="ov")closeSheet()});
+/* dictée */
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;let recog=null;
+function micBtn(target){return SR?`<button type="button" class="btn small mic" data-mic="${target}">🎙 Dicter</button>`:""}
+function stopRec(){if(recog){try{recog.stop()}catch(e){}recog=null}document.querySelectorAll(".mic.rec").forEach(b=>{b.classList.remove("rec");b.textContent="🎙 Dicter"})}
+function dictate(tid,btn){if(recog){stopRec();return}const ta=document.getElementById(tid);if(!ta||!SR)return;recog=new SR();recog.lang="fr-CA";recog.continuous=true;recog.interimResults=false;
+  recog.onresult=e=>{for(let i=e.resultIndex;i<e.results.length;i++)if(e.results[i].isFinal){const t=e.results[i][0].transcript.trim();ta.value=(ta.value?ta.value.replace(/\s*$/," "):"")+t}};
+  recog.onend=()=>{if(recog){try{recog.start()}catch(e){stopRec()}}};recog.onerror=()=>stopRec();
+  try{recog.start();btn.classList.add("rec");btn.textContent="■ Arrêter"}catch(e){toast("Dictée non disponible : utilisez le micro du clavier.")}}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-mic]");if(b)dictate(b.dataset.mic,b)});
+function momSelect(id,val){return `<select class="field" id="${id}" style="width:auto"><option value="">Moment (facultatif)</option>${Object.entries(MOM).map(([k,n])=>`<option value="${k}" ${val===k?"selected":""}>${n}</option>`).join("")}</select>`}
+function repOptions(c,val){return `<option value="">Domaine ou repère (facultatif)</option>${Object.entries(DOMS).map(([dk,D])=>`<option value="d:${dk}" ${val==="d:"+dk?"selected":""}>${D.nom} (général)</option>${D.subs.map(s=>`<optgroup label="${esc(SUBS[s].nom)}">${REP.filter(r=>r.sub===s&&Math.abs(r.band-bandOf(c))<=1).map(r=>`<option value="${r.id}" ${val===r.id?"selected":""}>${esc(BANDS[r.band]+" · "+r.t)}</option>`).join("")}</optgroup>`).join("")}`).join("")}`}
+function noteSheet(cid,rid){const c=S.children[cid];
+  openSheet(`<h3>Note · ${esc(c.name)}</h3><p class="tiny muted" style="margin:0">${fmtD(U.date,true)}</p><textarea class="field" id="nT" autofocus placeholder="Ce que vous avez vu, ce qui a aidé…"></textarea><div class="row" style="margin-top:6px">${micBtn("nT")}${momSelect("nM",rid&&REPI[rid]?REPI[rid].m:"")}</div>
+  <select class="field" id="nR" style="margin-top:8px">${repOptions(c,rid||"")}</select>
+  <div class="row" style="margin-top:10px"><button class="btn primary" id="nOk">Enregistrer</button><button class="btn" id="nNo">Fermer</button></div>`,s=>{
+    s.querySelector("#nNo").onclick=closeSheet;
+    s.querySelector("#nOk").onclick=()=>{const t=s.querySelector("#nT").value.trim();if(!t){toast("La note est vide.");return}const v=s.querySelector("#nR").value;const n={id:uid("n"),date:U.date,text:t,moment:s.querySelector("#nM").value,src:"manuel"};if(v.startsWith("d:"))n.dom=v.slice(2);else if(v){n.rep=v;n.dom=REPI[v].dom}
+      (c.notes=c.notes||[]).push(n);save();closeSheet();render();toast("Note enregistrée")}})}
+function quickNote(gid,cid){const K=kidsOf(gid);const sel=new Set(cid?[cid]:[]);
+  openSheet(`<h3>Note rapide</h3><p class="tiny muted" style="margin:0 0 6px">Dites l'essentiel ; vous classerez plus tard (ou votre IA le fera).</p><textarea class="field" id="qT" placeholder="Ex. : Léa a mis ses bottes seule aujourd'hui, très fière."></textarea>
+  <div class="row" style="margin-top:6px">${micBtn("qT")}${momSelect("qM","")}</div><p class="small" style="margin:8px 0 4px;font-weight:600">Enfants (facultatif)</p><div class="chips">${K.map(c=>`<button class="chip${sel.has(c.id)?" on":""}" data-qk="${c.id}">${esc(c.name)}</button>`).join("")}</div>
+  <div class="row" style="margin-top:10px"><button class="btn primary" id="qOk">Garder pour plus tard</button><button class="btn" id="qNo">Fermer</button></div>`,s=>{
+    s.querySelectorAll("[data-qk]").forEach(b=>b.onclick=()=>{const k=b.dataset.qk;sel.has(k)?sel.delete(k):sel.add(k);b.classList.toggle("on")});
+    s.querySelector("#qNo").onclick=closeSheet;
+    s.querySelector("#qOk").onclick=()=>{const t=s.querySelector("#qT").value.trim();if(!t){toast("La note est vide.");return}const g=S.groups[gid];(g.inbox=g.inbox||[]).push({id:uid("q"),text:t,date:U.date,at:new Date().toISOString(),kids:[...sel],moment:s.querySelector("#qM").value});save();closeSheet();render();toast("Note gardée dans « À classer »")};
+    const mb=s.querySelector("[data-mic]");if(mb)setTimeout(()=>dictate("qT",mb),250)})}
+function qSortSheet(gid,qid){const g=S.groups[gid];const q=(g.inbox||[]).find(x=>x.id===qid);if(!q)return;const K=kidsOf(gid);const sel=new Set(q.kids||[]);
+  openSheet(`<h3>Classer la note</h3><textarea class="field" id="sT">${esc(q.text)}</textarea><p class="small" style="margin:8px 0 4px;font-weight:600">Dans la fiche de</p><div class="chips">${K.map(c=>`<button class="chip${sel.has(c.id)?" on":""}" data-qk="${c.id}">${esc(c.name)}</button>`).join("")}</div>
+  <select class="field" id="sR" style="margin-top:8px">${K.length?repOptions(K[0],""):""}</select><div class="row" style="margin-top:6px">${momSelect("sM",q.moment||"")}</div>
+  <div class="row" style="margin-top:10px"><button class="btn primary" id="sOk">Classer</button><button class="btn" id="sNo">Fermer</button></div>`,s=>{
+    s.querySelectorAll("[data-qk]").forEach(b=>b.onclick=()=>{const k=b.dataset.qk;sel.has(k)?sel.delete(k):sel.add(k);b.classList.toggle("on")});
+    s.querySelector("#sNo").onclick=closeSheet;
+    s.querySelector("#sOk").onclick=()=>{if(!sel.size){toast("Choisissez au moins un enfant.");return}const t=s.querySelector("#sT").value.trim();const v=s.querySelector("#sR").value;
+      sel.forEach(k=>{const c=S.children[k];const n={id:uid("n"),date:q.date,text:t,moment:s.querySelector("#sM").value,src:"manuel"};if(v.startsWith("d:"))n.dom=v.slice(2);else if(v){n.rep=v;n.dom=REPI[v].dom}(c.notes=c.notes||[]).push(n)});
+      g.inbox=g.inbox.filter(x=>x.id!==qid);save();closeSheet();render();toast("Note classée")}})}
+function kidEditSheet(cid){const c=S.children[cid];
+  openSheet(`<h3>Réglages · ${esc(c.name)}</h3><label class="f">Prénom<input class="field" id="kN" value="${esc(c.name)}"></label><label class="f">Date de naissance<input type="date" class="field" id="kD" value="${c.dob||""}"></label>
+  <label class="f">Ce qui l'allume (intérêts)<input class="field" id="kI" value="${esc(c.interets||"")}"></label><label class="f">Langues parlées à la maison<input class="field" id="kL" value="${esc(c.langues||"")}"></label>
+  <label class="f">Famille, pratiques à respecter<textarea class="field" id="kF">${esc(c.famille||"")}</textarea></label>
+  <p class="small" style="font-weight:600;margin:8px 0 4px">Avatar</p><div class="row">${AVATARS.map(a=>`<button class="chip${(c.avatar||"renard")===a?" on":""}" data-av="${a}" style="padding:2px"><img src="${img("avatar-"+a)}" alt="${a}" style="width:38px;height:38px"></button>`).join("")}</div>
+  <div class="row" style="margin-top:12px"><button class="btn primary" id="kOk">Enregistrer</button><button class="btn" id="kNo">Fermer</button><button class="btn danger small" id="kDel" style="margin-left:auto">Retirer l'enfant</button></div>`,s=>{
+    let av=c.avatar||"renard";s.querySelectorAll("[data-av]").forEach(b=>b.onclick=()=>{av=b.dataset.av;s.querySelectorAll("[data-av]").forEach(x=>x.classList.toggle("on",x===b))});
+    s.querySelector("#kNo").onclick=closeSheet;
+    s.querySelector("#kOk").onclick=()=>{c.name=s.querySelector("#kN").value.trim()||c.name;c.dob=s.querySelector("#kD").value;c.interets=s.querySelector("#kI").value.trim();c.langues=s.querySelector("#kL").value.trim();c.famille=s.querySelector("#kF").value.trim();c.avatar=av;save();closeSheet();render()};
+    s.querySelector("#kDel").onclick=e=>{const b=e.currentTarget;if(!b.dataset.sure){b.dataset.sure=1;b.textContent="Toucher encore pour confirmer";return}const gid=c.groupId;delete S.children[cid];save();closeSheet();location.hash="#g-"+gid}})}
+function groupEditSheet(gid){const g=S.groups[gid];
+  openSheet(`<h3>Réglages du groupe</h3><label class="f">Nom<input class="field" id="gN" value="${esc(g.name)}"></label><div class="row" style="margin-top:12px"><button class="btn primary" id="gOk">Enregistrer</button><button class="btn" id="gNo">Fermer</button><button class="btn danger small" id="gDel" style="margin-left:auto">Supprimer le groupe</button></div>`,s=>{
+    s.querySelector("#gNo").onclick=closeSheet;s.querySelector("#gOk").onclick=()=>{g.name=s.querySelector("#gN").value.trim()||g.name;save();closeSheet();render()};
+    s.querySelector("#gDel").onclick=e=>{const b=e.currentTarget;if(!b.dataset.sure){b.dataset.sure=1;b.textContent="Toucher encore : groupe et enfants supprimés";return}kidsOf(gid).forEach(c=>delete S.children[c.id]);delete S.groups[gid];save();closeSheet();location.hash="#accueil"}})}
+function kwSheet(cid,mot,sph,t){const c=S.children[cid];const L=(c.kw||[]).filter(k=>norm(k.mot)===norm(mot)&&k.sph===sph&&k.t===t).sort((a,b)=>(b.date||"").localeCompare(a.date||""));
+  openSheet(`<h3>${esc(mot)}</h3><p class="small muted" style="margin:0">${t==="defi"?"Défi":"Force"} · ${SPH[sph].nom} · noté ${L.length} fois${L[0]&&L[0].date?" · dernière fois "+fmtD(L[0].date):""}</p>
+  <div class="row" style="margin-top:10px"><input class="field" id="wM" value="${esc(mot)}" style="flex:1 1 140px"><select class="field" id="wS" style="width:auto">${Object.entries(SPH).map(([k,s])=>`<option value="${k}" ${k===sph?"selected":""}>${s.nom}</option>`).join("")}</select><select class="field" id="wT" style="width:auto"><option value="force" ${t==="force"?"selected":""}>Force</option><option value="defi" ${t==="defi"?"selected":""}>Défi</option></select></div>
+  <div class="row" style="margin-top:10px"><button class="btn primary" id="wOk">Enregistrer</button><button class="btn" id="wNo">Fermer</button><button class="btn danger small" id="wDel" style="margin-left:auto">Retirer</button></div>`,s=>{
+    const ids=new Set(L.map(k=>k.id));s.querySelector("#wNo").onclick=closeSheet;
+    s.querySelector("#wOk").onclick=()=>{const m=s.querySelector("#wM").value.trim();if(!m)return;(c.kw||[]).forEach(k=>{if(ids.has(k.id)){k.mot=m;k.sph=s.querySelector("#wS").value;k.t=s.querySelector("#wT").value}});save();closeSheet();render()};
+    s.querySelector("#wDel").onclick=()=>{c.kw=(c.kw||[]).filter(k=>!ids.has(k.id));save();closeSheet();render()}})}
+function pasNoteSheet(cid,pid){const c=S.children[cid];const p=(c.pas||[]).find(x=>x.id===pid);if(!p)return;
+  openSheet(`<h3>${esc(p.text)}</h3><p class="tiny muted" style="margin:0">Note · ${fmtD(U.date,true)}</p><textarea class="field" id="pT" autofocus placeholder="Comment ça s'est passé…"></textarea><div class="row" style="margin-top:6px"><button class="btn primary" id="pOk">Ajouter</button>${micBtn("pT")}<button class="btn" id="pNo">Fermer</button></div>
+  ${(p.notes||[]).length?`<div style="margin-top:8px">${p.notes.slice().reverse().map(n=>`<div class="entry"><span class="when">${fmtD(n.date)}</span><span class="txt">${esc(n.text)}</span></div>`).join("")}</div>`:""}`,s=>{
+    s.querySelector("#pNo").onclick=closeSheet;s.querySelector("#pOk").onclick=()=>{const t=s.querySelector("#pT").value.trim();if(!t)return;(p.notes=p.notes||[]).push({date:U.date,text:t});(c.notes=c.notes||[]).push({id:uid("n"),date:U.date,text:"Prochain pas « "+p.text+" » : "+t,rep:p.rep||"",dom:p.rep&&REPI[p.rep]?REPI[p.rep].dom:"",src:"manuel"});save();closeSheet();render()}})}
+async function photoViewSheet(cid,pid){const c=S.children[cid];const p=(c.photos||[]).find(x=>x.id===pid);if(!p)return;const src=await phSrc(pid);
+  openSheet(`<img src="${src}" alt="" style="width:100%;border-radius:12px"><p class="small">${fmtD(p.d,true)}${p.rep?" · "+esc(repLabel(p.rep)):""}</p><input class="field" id="phC" value="${esc(p.cap||"")}" placeholder="Ce qu'on voit (facultatif)"><select class="field" id="phR" style="margin-top:6px">${repOptions(c,p.rep||"")}</select>
+  <div class="row" style="margin-top:10px"><button class="btn primary" id="phOk">Enregistrer</button><button class="btn" id="phNo">Fermer</button><button class="btn danger small" id="phDel" style="margin-left:auto">Supprimer</button></div>`,s=>{
+    s.querySelector("#phNo").onclick=closeSheet;s.querySelector("#phOk").onclick=()=>{p.cap=s.querySelector("#phC").value.trim();const v=s.querySelector("#phR").value;p.rep=v&&!v.startsWith("d:")?v:"";save();closeSheet();render()};
+    s.querySelector("#phDel").onclick=async e=>{const b=e.currentTarget;if(!b.dataset.sure){b.dataset.sure=1;b.textContent="Toucher encore pour confirmer";return}c.photos=c.photos.filter(x=>x.id!==pid);await tx("photos","readwrite",st=>st.delete(pid));save();closeSheet();render()}})}
+async function addPhoto(cid,file){const c=S.children[cid];try{const bmp=await createImageBitmap(file);const sc=Math.min(1,1600/Math.max(bmp.width,bmp.height));const cv=document.createElement("canvas");cv.width=Math.round(bmp.width*sc);cv.height=Math.round(bmp.height*sc);cv.getContext("2d").drawImage(bmp,0,0,cv.width,cv.height);const blob=await new Promise(r=>cv.toBlob(r,"image/jpeg",.82));const id=uid("ph");await tx("photos","readwrite",st=>st.put(blob,id));(c.photos=c.photos||[]).push({id,d:U.date});save();render();toast("Photo ajoutée")}catch(e){toast("La photo n'a pas pu être ajoutée.")}}
+/* ---------- Notes : exporter → IA → importer ---------- */
+function notesMenu(gid){openSheet(`<h3>Notes</h3><label class="f">Date<input type="date" class="field" id="mD" value="${U.date}"></label><div style="display:grid;gap:8px">
+  <button class="btn" id="mExp">Exporter mes notes du jour</button><button class="btn" id="mImp">Importer la réponse de l'IA</button><button class="btn" id="mIA">Instructions IA</button></div><div class="row" style="margin-top:10px"><button class="btn ghost" id="mNo">Fermer</button></div>`,s=>{
+  const dd=()=>s.querySelector("#mD").value||todayISO();s.querySelector("#mNo").onclick=closeSheet;
+  s.querySelector("#mExp").onclick=()=>exportSheet(gid,dd());s.querySelector("#mImp").onclick=()=>importSheet(gid,dd());s.querySelector("#mIA").onclick=()=>copyText(instrText(gid),"Instructions copiées : collez-les dans votre projet IA")})}
+function dayItems(gid,d){const out=[];kidsOf(gid).forEach(c=>(c.notes||[]).filter(n=>n.date===d).forEach(n=>out.push({kind:"n",cid:c.id,id:n.id,who:c.name,where:[n.rep?repLabel(n.rep):n.dom?DOMS[n.dom].nom:"",n.moment?MOM[n.moment]:""].filter(Boolean).join(" · ")||"Note",text:n.text})));
+  const g=S.groups[gid];(g.inbox||[]).filter(q=>q.date===d).forEach(q=>out.push({kind:"q",id:q.id,who:(q.kids||[]).map(k=>(S.children[k]||{}).name).filter(Boolean).join(", ")||"Note rapide",where:"À classer"+(q.moment?" · "+MOM[q.moment]:""),text:q.text}));
+  (g.notes||[]).filter(n=>n.date===d).forEach(n=>out.push({kind:"g",id:n.id,who:"Groupe",where:"Groupe",text:n.text}));return out}
+function exportPrompt(gid,d,items){return `Voici TOUTES mes notes du ${fmtD(d,true)} (groupe ${S.groups[gid].name}), prises à différents endroits de l'app Awacak, souvent dictées en vrac.
+
+Réécris-les proprement (ponctuation, phrases claires, sans hésitations, en gardant tous les faits et les mots des enfants), puis reclasse chacune au bon enfant, au bon domaine et au bon repère selon tes instructions Awacak. Redonne-moi seulement le bloc Awacak complet. Chaque note doit s'y retrouver. Date : ${d}.
+(Si tu n'as pas mes instructions Awacak, dis-le-moi avant de répondre.)
+
+${items.map(it=>`- [${it.who} · ${it.where}] ${String(it.text).replace(/\s+/g," ").trim()}`).join("\n")}`}
+function exportSheet(gid,d){const items=dayItems(gid,d);
+  openSheet(`<h3>Exporter mes notes du jour</h3><label class="f">Date<input type="date" class="field" id="xD" value="${d}"></label><p class="small"><b>${items.length} note${items.length>1?"s":""}</b> ce jour-là, peu importe où elles ont été écrites.</p>
+  ${items.length?`<div class="list">${items.map((it,i)=>`<label class="li"><input type="checkbox" class="xK" value="${i}" checked><span><b>${esc(it.who)}</b> <span class="muted">· ${esc(it.where)}</span><br>${esc(String(it.text).slice(0,140))}</span></label>`).join("")}</div>`:`<p class="muted small">Aucune note à cette date.</p>`}
+  <ol class="small muted" style="padding-left:20px"><li><b>Copier</b>, puis coller dans votre projet ${esc(AIS[S.settings.ai||"claude"].nom)} (celui qui a les instructions Awacak).</li><li>L'IA réécrit, reclasse et redonne un bloc Awacak.</li><li><b>Importer la réponse</b> : les notes brutes de cette date sont remplacées par les notes propres. Les originales restent gardées.</li></ol>
+  <div class="row"><button class="btn primary" id="xC" ${items.length?"":"disabled"}>1. Copier pour mon IA</button><button class="btn" id="xI">3. Importer la réponse</button><button class="btn ghost" id="xN">Fermer</button></div>`,s=>{
+    s.querySelector("#xN").onclick=closeSheet;s.querySelector("#xD").onchange=e=>exportSheet(gid,e.target.value||todayISO());
+    s.querySelector("#xC").onclick=()=>{const sel=[...s.querySelectorAll(".xK:checked")].map(x=>items[+x.value]);if(!sel.length){toast("Cochez au moins une note.");return}S.groups[gid].pendingExport={date:d,items:sel};save();copyText(exportPrompt(gid,d,sel),sel.length+" notes copiées : collez-les dans votre IA");s.querySelector("#xI").classList.add("primary")};
+    s.querySelector("#xI").onclick=()=>importSheet(gid,d)})}
+function instrText(gid){const g=S.groups[gid];const K=kidsOf(gid);
+  return `Tu m'aides à mettre au propre mes notes d'observation d'enfants de 0 à 5 ans en halte-garderie (groupe : ${g.name}). Je suis éducatrice spécialisée. Mes notes sont souvent dictées, en vrac, avec des prénoms mal écrits. Je te donne souvent toutes les notes d'une journée d'un coup : chaque ligne commence par [prénom · endroit], un simple indice.
+
+À CHAQUE FOIS :
+1. Réécris chaque note proprement, en gardant tous les faits et les mots des enfants. N'invente rien, n'interprète pas, reste positif et descriptif.
+2. Reclasse chaque note au bon enfant (une note sur plusieurs enfants va à chacun), au bon domaine et, si c'est clair, au bon repère (code ci-dessous). Une note sur le groupe en entier va dans "groupe".
+3. Si la note montre clairement un niveau pour un repère, indique-le : commence (avec beaucoup d'aide), envoie (avec un peu d'aide), acquis (seul). Sinon, laisse vide.
+4. Propose au besoin 1 à 3 mots-clés (force ou défi) et la sphère de la roue de la médecine : tete (comprendre, langage), esprit (liens, vie sociale), coeur (émotions, confiance), corps (bouger, sentir, soins).
+5. Réponds seulement avec le bloc ci-dessous, sans autre texte.
+
+=== BLOC AWACAK ===
+{"date":"AAAA-MM-JJ","groupe":[{"texte":"…"}],"extraits":[{"enfant":"Prénom","domaine":"phys|cog|lang|soc","repere":"code ou vide","niveau":"commence|envoie|acquis ou vide","moment":"A|J|C|H|D|R|T|S|P ou vide","texte":"…","motscles":[{"mot":"1 à 3 mots","sphere":"tete|esprit|coeur|corps","type":"force|defi"}],"prochainpas":"idée d'un prochain pas, ou vide"}]}
+=== FIN BLOC ===
+
+Moments : ${Object.entries(MOM).map(([k,n])=>k+" = "+n).join(", ")}.
+
+ENFANTS DU GROUPE (écris le prénom exactement ainsi) :
+${K.map(c=>`- ${c.name}${c.dob?" ("+ageLabel(c.dob)+")":""}`).join("\n")||"(aucun)"}
+
+REPÈRES (code = repère) :
+${Object.entries(SUBS).map(([sk,s])=>`${DOMS[s.dom].nom} · ${s.nom}\n`+BANDS.map((bn,b)=>`  ${bn} : `+REP.filter(r=>r.sub===sk&&r.band===b).map(r=>`[${r.id}] ${r.t}`).join(" ; ")).join("\n")).join("\n")}`}
+function parseBlocs(txt){const out=[];const re=/===\s*BLOC[^=]*===([\s\S]*?)===\s*FIN BLOC\s*===/g;let m;while((m=re.exec(txt))){try{out.push(JSON.parse(m[1].trim()))}catch(e){}}
+  if(!out.length){const t=txt.trim();const i=t.indexOf("{"),j=t.lastIndexOf("}");if(i>=0&&j>i){try{const o=JSON.parse(t.slice(i,j+1));(Array.isArray(o)?o:[o]).forEach(x=>out.push(x))}catch(e){}}}
+  return out.filter(b=>b&&(Array.isArray(b.extraits)||Array.isArray(b.groupe)))}
+function findKid(gid,name){const n=norm(name);const K=kidsOf(gid);return K.find(c=>norm(c.name)===n)||K.find(c=>norm(c.name).startsWith(n)||n.startsWith(norm(c.name)))||K.find(c=>norm(c.name).split(" ")[0]===n.split(" ")[0])}
+function importSheet(gid,d){const g=S.groups[gid];const pe=g.pendingExport;
+  openSheet(`<h3>Importer la réponse de l'IA</h3>${pe?`<div class="notice">Après l'import, les <b>${pe.items.length} notes</b> exportées du ${fmtD(pe.date)} seront remplacées par les notes propres. Les originales restent gardées dans les notes du groupe.</div>`:""}
+  <textarea class="field" id="iT" style="min-height:160px" placeholder="Collez ici la réponse de votre IA (le bloc Awacak)"></textarea><div class="row" style="margin-top:6px"><label class="btn small">📂 Ouvrir un fichier<input type="file" accept=".json,.txt" hidden id="iF"></label></div>
+  <div class="row" style="margin-top:10px"><button class="btn primary" id="iGo">Lire</button><button class="btn" id="iNo">Fermer</button></div><div id="iOut"></div>`,s=>{
+    s.querySelector("#iNo").onclick=closeSheet;s.querySelector("#iF").onchange=async e=>{const f=e.target.files[0];if(f)s.querySelector("#iT").value=await f.text()};
+    s.querySelector("#iGo").onclick=()=>{const B=parseBlocs(s.querySelector("#iT").value);if(!B.length){toast("Je ne trouve pas de bloc Awacak dans ce texte.");return}
+      const items=[];B.forEach(b=>{const date=/^\d{4}-\d{2}-\d{2}$/.test(b.date||"")?b.date:d;(b.groupe||[]).forEach(x=>x&&x.texte&&items.push({type:"g",date,texte:x.texte}));(b.extraits||[]).forEach(x=>{if(!x||!x.texte)return;const c=findKid(gid,x.enfant||"");items.push({type:"e",date,x,c})})});
+      const NV={commence:1,envoie:2,"en voie":2,acquis:3};
+      s.querySelector("#iOut").innerHTML=`<p class="small" style="margin-top:10px"><b>${items.length} élément${items.length>1?"s":""}</b>. Décochez ce qui ne convient pas.</p><div class="list">${items.map((it,i)=>it.type==="g"?`<label class="li"><input type="checkbox" class="iK" value="${i}" checked><span><b>Groupe</b><br>${esc(it.texte)}</span></label>`:`<label class="li"><input type="checkbox" class="iK" value="${i}" ${it.c?"checked":"disabled"}><span><b>${esc(it.c?it.c.name:(it.x.enfant||"?")+" (introuvable)")}</b> <span class="muted">· ${esc([it.x.repere&&REPI[it.x.repere]?REPI[it.x.repere].t:DOMS[it.x.domaine]?DOMS[it.x.domaine].court:"",NV[it.x.niveau]?LV[NV[it.x.niveau]]:"",MOM[it.x.moment]||""].filter(Boolean).join(" · "))}</span><br>${esc(it.x.texte)}${(it.x.motscles||[]).length?`<br><span class="tiny muted">Mots-clés : ${it.x.motscles.map(k=>esc(k.mot)).join(", ")}</span>`:""}${it.x.prochainpas?`<br><span class="tiny muted">Prochain pas : ${esc(it.x.prochainpas)}</span>`:""}</span></label>`).join("")}</div>
+      <div class="row" style="margin-top:10px"><button class="btn primary" id="iOk">Enregistrer</button></div>`;
+      s.querySelector("#iOk").onclick=()=>{const on=[...s.querySelectorAll(".iK:checked")].map(x=>items[+x.value]);let n=0;const dates=new Set();
+        on.forEach(it=>{dates.add(it.date);if(it.type==="g"){(g.notes=g.notes||[]).push({id:uid("gn"),date:it.date,text:it.texte,src:"ia"});n++;return}const c=it.c,x=it.x;const rid=x.repere&&REPI[x.repere]?x.repere:"";
+          (c.notes=c.notes||[]).push({id:uid("n"),date:it.date,text:x.texte,rep:rid,dom:rid?REPI[rid].dom:(DOMS[x.domaine]?x.domaine:""),moment:MOM[x.moment]?x.moment:"",src:"ia"});n++;
+          const lv=NV[x.niveau];if(rid&&lv)setLvl(c,rid,lv,it.date);
+          (x.motscles||[]).forEach(k=>{if(k&&k.mot&&SPH[k.sphere])(c.kw=c.kw||[]).push({id:uid("k"),mot:k.mot,sph:k.sphere,t:k.type==="defi"?"defi":"force",date:it.date})});
+          if(x.prochainpas&&!(c.pas||[]).some(p=>norm(p.text)===norm(x.prochainpas)))(c.pas=c.pas||[]).push({id:uid("p"),text:x.prochainpas,rep:rid,status:"cours",date:it.date})});
+        if(pe&&dates.has(pe.date))removeExported(gid);
+        save();closeSheet();render();toast(n+" notes enregistrées")}}})}
+function removeExported(gid){const g=S.groups[gid];const pe=g.pendingExport;if(!pe)return;const ids=new Set(pe.items.map(i=>i.id));
+  kidsOf(gid).forEach(c=>{c.notes=(c.notes||[]).filter(n=>!ids.has(n.id))});g.inbox=(g.inbox||[]).filter(q=>!ids.has(q.id));g.notes=(g.notes||[]).filter(n=>!ids.has(n.id));
+  (g.notes=g.notes||[]).push({id:uid("gn"),date:pe.date,text:"Notes originales (avant la mise au propre) :\n"+pe.items.map(it=>`- [${it.who} · ${it.where}] ${it.text}`).join("\n"),src:"original"});delete g.pendingExport}
+/* ---------- Portrait périodique ---------- */
+function periodLabel(){const d=new Date();const m=d.getMonth()+1,y=d.getFullYear();return m>=6?`novembre ${y}`:`mai ${y}`}
+function portraitData(c){const out={};Object.entries(DOMS).forEach(([dk,D])=>{const obs=REP.filter(r=>r.dom===dk&&lvlOf(c,r.id)).map(r=>`${r.t} : ${LV[lvlOf(c,r.id)].toLowerCase()}`);const notes=(c.notes||[]).filter(n=>n.dom===dk).sort((a,b)=>b.date.localeCompare(a.date)).slice(0,25).map(n=>`${n.date} : ${n.text}`);out[dk]={obs,notes}});return out}
+function portraitPrompt(c,per){const P=portraitData(c);const A=kwAgg(c);
+  return `Rédige le portrait périodique (dossier éducatif, ministère de la Famille du Québec) de ${c.name}${c.dob?", "+ageLabel(c.dob):""}, pour la période de ${per}. Il couvre les 4 domaines : physique et moteur, cognitif, langagier, social et affectif.
+Pour chaque domaine : 3 à 5 phrases simples pour les parents, positives, descriptives et respectueuses, qui soulignent les forces, les intérêts, les progrès et, s'il y a lieu, les défis présentés comme ce sur quoi on travaille. Pas de jargon, pas de diagnostic, rien d'inventé : utilise seulement les observations ci-dessous. Ajoute "suite" : 2 ou 3 prochains pas que nous allons offrir.
+Réponds seulement en JSON : {"physique":"…","cognitif":"…","langagier":"…","social":"…","suite":"…"}
+${c.interets?"\nIntérêts : "+c.interets:""}${c.langues?"\nLangues : "+c.langues:""}${c.famille?"\nÀ respecter (famille) : "+c.famille:""}
+Forces (roue) : ${A.filter(x=>x.t==="force").map(x=>x.mot).join(", ")||"—"}
+Défis (roue) : ${A.filter(x=>x.t==="defi").map(x=>x.mot).join(", ")||"—"}
+Prochains pas actuels : ${(c.pas||[]).map(p=>p.text+" ("+(p.status==="fait"?"fait":"en cours")+")").join(" ; ")||"—"}
+
+${Object.entries(DOMS).map(([dk,D])=>`${D.nom.toUpperCase()}\nRepères observés : ${P[dk].obs.join(" ; ")||"—"}\nNotes : ${P[dk].notes.join(" | ")||"—"}`).join("\n\n")}`}
+function portraitSheet(cid){const c=S.children[cid];const per=periodLabel();c.portraits=c.portraits||{};const cur=c.portraits[per]||{};
+  const F=[["physique","Physique et moteur"],["cognitif","Cognitif"],["langagier","Langagier"],["social","Social et affectif"],["suite","Pour la suite"]];
+  if(!cur.suite&&(c.pas||[]).length)cur.suite=(c.pas||[]).filter(p=>p.status!=="fait").map(p=>p.text).join(" ; ");
+  openSheet(`<h3>Portrait périodique · ${esc(c.name)}</h3><p class="small muted" style="margin:0">Période : ${per}. À compléter en novembre et en mai, à remettre aux parents au plus tard le 15 décembre et le 15 juin.</p>
+  <div class="row" style="margin:10px 0"><button class="btn small" id="ppAI">1. Copier pour mon IA</button><button class="btn small" id="ppPaste">2. Coller la réponse</button></div><div id="ppIn"></div>
+  ${F.map(([k,n])=>`<label class="f">${n}<textarea class="field" id="pp_${k}" style="min-height:110px">${esc(cur[k]||"")}</textarea></label>`).join("")}
+  <label class="f">Rédigé par<input class="field" id="ppBy" value="${esc(cur.by||S.settings.me||"")}"></label><label class="f">Date<input type="date" class="field" id="ppD" value="${cur.date||todayISO()}"></label>
+  <div class="row" style="margin-top:10px"><button class="btn primary" id="ppSave">Enregistrer</button><button class="btn" id="ppDoc">Créer le document</button><button class="btn ghost" id="ppNo">Fermer</button></div>`,s=>{
+    const grab=()=>{const o={};F.forEach(([k])=>o[k]=s.querySelector("#pp_"+k).value.trim());o.by=s.querySelector("#ppBy").value.trim();o.date=s.querySelector("#ppD").value;return o};
+    s.querySelector("#ppNo").onclick=closeSheet;s.querySelector("#ppAI").onclick=()=>copyText(portraitPrompt(c,per),"Copié : collez dans votre IA");
+    s.querySelector("#ppPaste").onclick=()=>{s.querySelector("#ppIn").innerHTML=`<textarea class="field" id="ppR" placeholder="Collez la réponse JSON de l'IA"></textarea><button class="btn small primary" id="ppFill" style="margin-top:6px">Remplir</button>`;s.querySelector("#ppFill").onclick=()=>{const t=s.querySelector("#ppR").value;const i=t.indexOf("{"),j=t.lastIndexOf("}");try{const o=JSON.parse(t.slice(i,j+1));F.forEach(([k])=>{if(o[k])s.querySelector("#pp_"+k).value=o[k]});s.querySelector("#ppIn").innerHTML="";toast("Textes remplis : relisez et ajustez")}catch(e){toast("Je ne comprends pas cette réponse.")}}};
+    s.querySelector("#ppSave").onclick=()=>{c.portraits[per]=grab();save();toast("Portrait enregistré")};
+    s.querySelector("#ppDoc").onclick=async()=>{c.portraits[per]=grab();save();const html=await portraitDoc(c,per,c.portraits[per]);download(`portrait-${norm(c.name).replace(/ /g,"-")}-${per.replace(/ /g,"-")}.html`,html,"text/html");toast("Document créé : ouvrez-le pour imprimer ou enregistrer en PDF")}})}
+async function toDataURL(u){try{const r=await fetch(u);const b=await r.blob();return await new Promise(res=>{const f=new FileReader();f.onload=()=>res(f.result);f.readAsDataURL(b)})}catch(e){return ""}}
+async function portraitDoc(c,per,P){const E=esc;const ic={};for(const k of Object.keys(SPH))ic[k]=await toDataURL(`img/sph-${k}.webp`);const logo=await toDataURL("img/enfants.png");
+  let wheel=wheelHTML(c).replace(/<img class="wi (\w)" src="img\/sph-(\w+)\.webp" alt="">/g,(m,p,k)=>`<img class="wi ${p}" src="${ic[k]}" alt="">`).replace(/ data-act="kwOpen"[^>]*?data-t="\w+"/g,"");
+  const box=(t,v)=>`<section class="bx"><h2>${t}</h2><p>${E(v||"").replace(/\n/g,"<br>")||"<span class='m'>—</span>"}</p></section>`;
+  return `<!DOCTYPE html><html lang="fr-CA"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Portrait périodique · ${E(c.name)}</title><style>
+@page{size:Letter;margin:.6in}body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#2a2622;max-width:7.3in;margin:0 auto;padding:18px;line-height:1.5}
+header{display:flex;align-items:center;gap:14px;border-bottom:3px solid #E0782F;padding-bottom:10px}header img{width:70px}h1{margin:0;font-size:22pt;color:#E0782F}.sub{margin:2px 0 0;color:#6a615a}
+.id{display:grid;grid-template-columns:1fr 1fr;gap:4px 16px;margin:14px 0;font-size:10.5pt}.bx{border:1px solid #EADFD3;border-left:5px solid #E0782F;border-radius:10px;padding:10px 14px;margin:12px 0;break-inside:avoid;background:#FFFBF6}.bx h2{margin:0 0 4px;font-size:13pt}.bx p{margin:0;font-size:11pt}.m{color:#999}
+.wheelwrap{position:relative;width:4.6in;aspect-ratio:1;margin:10px auto}.wheelwrap svg{position:absolute;inset:0;width:100%;height:100%}.q{position:absolute;display:flex;flex-wrap:wrap;gap:4px;align-content:center;justify-content:center;overflow:hidden}.qn{left:22%;right:22%;top:6%;height:24%}.qs{left:22%;right:22%;bottom:6%;height:24%}.qe{right:4%;top:30%;width:24%;height:40%}.qw{left:4%;top:30%;width:24%;height:40%}
+.k{background:rgba(255,255,255,.94);border:0;border-radius:999px;padding:2px 8px;font:inherit;font-weight:700;color:#2a2622;line-height:1.2}.k.defi{outline:2px dashed #C9573F;outline-offset:-2px}.wc{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:24%;text-align:center;font-weight:700;font-size:10pt}.wi{position:absolute;width:9%;z-index:2}.wi.n{left:50%;top:30.5%;transform:translateX(-50%)}.wi.s{left:50%;bottom:30.5%;transform:translateX(-50%)}.wi.e{right:30.5%;top:50%;transform:translateY(-50%)}.wi.w{left:30.5%;top:50%;transform:translateY(-50%)}
+.leg{display:grid;grid-template-columns:repeat(4,1fr);text-align:center;font-size:9pt}.leg img{width:30px}.sig{margin-top:22px;display:grid;grid-template-columns:1fr 1fr;gap:24px;font-size:10.5pt}.sig div{border-top:1px solid #999;padding-top:4px}.pb{break-before:page}
+@media print{body{padding:0}}</style></head><body>
+<header><img src="${logo}" alt=""><div><h1>Portrait périodique</h1><p class="sub">Dossier éducatif de l'enfant · ${E(per)}</p></div></header>
+<div class="id"><div><b>Enfant :</b> ${E(c.name)}</div><div><b>Date de naissance :</b> ${c.dob?E(fmtD(c.dob,true)):"—"}</div><div><b>Rédigé par :</b> ${E(P.by||"")}</div><div><b>Date de rédaction :</b> ${P.date?E(fmtD(P.date,true)):"—"}</div></div>
+${box("Physique et moteur",P.physique)}${box("Cognitif",P.cognitif)}${box("Langagier",P.langagier)}${box("Social et affectif",P.social)}${box("Pour la suite",P.suite)}
+<div class="sig"><div>Signature de l'éducatrice</div><div>Date de remise au parent</div></div>
+<section class="pb"><h2 style="color:#E0782F">Ses forces dans la roue de la médecine</h2>${wheel}<div class="leg">${Object.entries(SPH).map(([k,s])=>`<div><img src="${ic[k]}" alt=""><br><b>${s.nom}</b><br>${s.d}</div>`).join("")}</div></section>
+</body></html>`}
+/* ---------- Sauvegardes ---------- */
+function download(name,data,type){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([data],{type:type||"application/json"}));a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1000)}
+async function copyText(t,msg){try{await navigator.clipboard.writeText(t);toast(msg||"Copié")}catch(e){const ta=document.createElement("textarea");ta.value=t;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");toast(msg||"Copié")}catch(er){toast("Copie impossible")}ta.remove()}}
+function backup(){S.meta.lastBackup=new Date().toISOString();save();download(`awacak-sauvegarde-${todayISO()}.json`,JSON.stringify({awacak:1,at:S.meta.lastBackup,data:S}));toast("Sauvegarde téléchargée")}
+async function backupPhotos(){const keys=await keysP("photos");const out={};for(const k of keys){const b=await getP("photos",k);out[k]=await new Promise(res=>{const f=new FileReader();f.onload=()=>res(f.result);f.readAsDataURL(b)})}download(`awacak-photos-${todayISO()}.json`,JSON.stringify({awacakPhotos:1,photos:out}));toast(keys.length+" photos sauvegardées")}
+function mergeArr(a,b){const m=new Map();(a||[]).forEach(x=>m.set(x.id,x));(b||[]).forEach(x=>{if(x&&x.id&&!m.has(x.id))m.set(x.id,x)});return [...m.values()]}
+function mergeKid(a,b){const o=Object.assign({},b,a);["notes","kw","pas","photos"].forEach(k=>o[k]=mergeArr(a[k],b[k]));o.obs=Object.assign({},b.obs||{});Object.entries(a.obs||{}).forEach(([r,L])=>{const M=new Map((o.obs[r]||[]).map(e=>[e.d,e]));L.forEach(e=>M.set(e.d,e));o.obs[r]=[...M.values()]});o.portraits=Object.assign({},b.portraits||{},a.portraits||{});return o}
+function mergeGroup(a,b){const o=Object.assign({},b,a);o.inbox=mergeArr(a.inbox,b.inbox);o.notes=mergeArr(a.notes,b.notes);o.presences=Object.assign({},b.presences||{});Object.entries(a.presences||{}).forEach(([d,L])=>o.presences[d]=[...new Set([...(o.presences[d]||[]),...L])]);return o}
+async function readJSONFile(f){try{return JSON.parse(await f.text())}catch(e){toast("Fichier illisible.");return null}}
+async function importPhotos(o){let n=0;for(const [k,u] of Object.entries(o.photos||{})){try{const b=await (await fetch(u)).blob();await tx("photos","readwrite",st=>st.put(b,k));n++}catch(e){}}toast(n+" photos importées");render()}
+async function onBackupFile(f,mode){const o=await readJSONFile(f);if(!o)return;if(o.awacakPhotos){await importPhotos(o);return}if(!o.awacak||!o.data){toast("Ce n'est pas une sauvegarde Awacak.");return}
+  if(mode==="restore"){S=Object.assign({v:1,groups:{},children:{},settings:{me:"",ai:"claude",sph:{}},meta:{}},o.data);save();toast("Sauvegarde restaurée");location.hash="#accueil";render();return}
+  const D=o.data;Object.entries(D.groups||{}).forEach(([k,g])=>S.groups[k]=S.groups[k]?mergeGroup(S.groups[k],g):g);Object.entries(D.children||{}).forEach(([k,c])=>S.children[k]=S.children[k]?mergeKid(S.children[k],c):c);save();render();toast("Sauvegarde fusionnée")}
+/* ---------- Actions ---------- */
+document.addEventListener("click",e=>{const b=e.target.closest("[data-act]");if(!b||b.tagName==="INPUT")return;const a=b.dataset.act,id=b.dataset.id;const c=S.children[id];
+  if(a==="addGroup"){const n=$("#newG").value.trim();if(!n){toast("Donnez un nom au groupe.");return}const g={id:uid("g"),name:n,presences:{},inbox:[],notes:[]};S.groups[g.id]=g;save();location.hash="#g-"+g.id}
+  else if(a==="addKids"){const L=$("#newKids").value.split(/\n|,/).map(x=>x.trim()).filter(Boolean);if(!L.length)return;L.forEach((n,i)=>{const k={id:uid("c"),groupId:id,name:n,dob:"",avatar:AVATARS[(Object.keys(S.children).length+i)%AVATARS.length],obs:{},notes:[],kw:[],pas:[],photos:[]};S.children[k.id]=k});save();render();toast(L.length+" enfant(s) ajouté(s)")}
+  else if(a==="pres"){const kid=S.children[id];const g=S.groups[kid.groupId];g.presences=g.presences||{};const L=g.presences[U.date]=g.presences[U.date]||[];const i=L.indexOf(id);i>=0?L.splice(i,1):L.push(id);save();render()}
+  else if(a==="groupEdit")groupEditSheet(id);else if(a==="kidEdit")kidEditSheet(id);
+  else if(a==="sub"){U.sub[b.dataset.d]=b.dataset.s;render()}else if(a==="band"){U.band[b.dataset.k]=+b.dataset.b;render()}
+  else if(a==="lv"){const l=+b.dataset.l;const now=lvlOn(c,b.dataset.r,U.date);setLvl(c,b.dataset.r,now===l?0:l,U.date);save();render()}
+  else if(a==="noteRep")noteSheet(id,b.dataset.r);else if(a==="noteAdd")noteSheet(id,"");
+  else if(a==="noteDel"){c.notes=c.notes.filter(n=>n.id!==b.dataset.n);save();render()}
+  else if(a==="pasFromRep"){const r=REPI[b.dataset.r];const t="Offrir : "+r.a.split(",")[0].trim().replace(/^./,x=>x.toLowerCase());(c.pas=c.pas||[]).push({id:uid("p"),text:t,rep:r.id,status:"cours",date:U.date});save();toast("Prochain pas ajouté (modifiable dans le Portrait)");render()}
+  else if(a==="pasAdd"){const t=$("#pasT").value.trim();if(!t)return;(c.pas=c.pas||[]).push({id:uid("p"),text:t,rep:"",status:"cours",date:U.date});save();render()}
+  else if(a==="pasSug"){(c.pas=c.pas||[]).push({id:uid("p"),text:b.dataset.t,rep:b.dataset.r||"",status:"cours",date:U.date});save();render()}
+  else if(a==="pasSt"){const p=c.pas.find(x=>x.id===b.dataset.p);p.status=p.status==="fait"?"cours":"fait";p.doneDate=p.status==="fait"?U.date:"";save();render()}
+  else if(a==="pasDel"){c.pas=c.pas.filter(x=>x.id!==b.dataset.p);save();render()}else if(a==="pasNote")pasNoteSheet(id,b.dataset.p);
+  else if(a==="kwAdd"){const m=$("#kwM").value.trim();if(!m)return;(c.kw=c.kw||[]).push({id:uid("k"),mot:m,sph:$("#kwS").value,t:$("#kwT").value,date:U.date});save();render()}
+  else if(a==="kwOpen")kwSheet(id,b.dataset.m,b.dataset.s,b.dataset.t);
+  else if(a==="photoView")photoViewSheet(id,b.dataset.p);
+  else if(a==="portraitP")portraitSheet(id);
+  else if(a==="notesMenu")notesMenu(id);else if(a==="qSort")qSortSheet(id,b.dataset.q);
+  else if(a==="qDel"){const g=S.groups[id];g.inbox=g.inbox.filter(x=>x.id!==b.dataset.q);save();render()}
+  else if(a==="backup")backup();else if(a==="backupPh")backupPhotos()});
+document.addEventListener("change",e=>{const t=e.target;
+  if(t.id==="uDate"){U.date=t.value||todayISO();render()}
+  else if(t.dataset.act==="photoAdd"&&t.files[0])addPhoto(t.dataset.id,t.files[0]);
+  else if(t.dataset.act==="mergeFile"&&t.files[0])onBackupFile(t.files[0],"merge");
+  else if(t.dataset.act==="restoreFile"&&t.files[0]){if(confirm("Remplacer toutes les données de cet appareil par cette sauvegarde ?"))onBackupFile(t.files[0],"restore")}
+  else if(t.id==="setMe"){S.settings.me=t.value.trim();save()}else if(t.id==="setAI"){S.settings.ai=t.value;save()}
+  else if(t.dataset.sphr){S.settings.sph=S.settings.sph||{};const r=REPI[t.dataset.sphr];if(t.value===r.sph0)delete S.settings.sph[r.id];else S.settings.sph[r.id]=t.value;save();toast("Sphère modifiée")}});
+$("#fab").onclick=()=>{const r=route();const g=r.v==="group"?r.gid:r.v==="child"&&S.children[r.cid]?S.children[r.cid].groupId:null;if(g)quickNote(g,r.v==="child"?r.cid:null)};
+/* ---------- Démarrage ---------- */
+(async()=>{try{db=await idb();const st=await getP("state","main");if(st)S=Object.assign(S,st);S.settings=Object.assign({me:"",ai:"claude",sph:{}},S.settings||{})}catch(e){toast("Stockage indisponible sur ce navigateur.")}
+  render();if(navigator.storage&&navigator.storage.persist)navigator.storage.persist().catch(()=>{});
+  if("serviceWorker" in navigator&&location.protocol!=="file:")navigator.serviceWorker.register("sw.js").catch(()=>{})})();
+</script>
+</body>
+</html>
