@@ -225,6 +225,8 @@ function bankSheet(cid,key,rid){const st=S.settings;st.bank=st.bank||{};st.hide=
   openSheet(`<h3>Mes pistes</h3><p class="small muted" style="margin:0">${key.startsWith("r:")?esc(REPI[key.slice(2)].t):"Thème : "+esc(THEMES[key.slice(2)].nom)}</p><p class="tiny muted">Vos ajouts reviennent pour tous les enfants. Masquez ce qui ne vous sert pas.</p>
   <div class="row"><input class="field" id="bN" placeholder="Ajouter une piste" style="flex:1 1 160px"><button class="btn small primary" id="bAdd">Ajouter</button></div><div class="list" id="bL" style="margin-top:8px"></div><div class="row" style="margin-top:10px"><button class="btn" id="bNo">Fermer</button></div>`,s=>{
     draw(s);s.querySelector("#bNo").onclick=()=>{closeSheet();render()};s.querySelector("#bAdd").onclick=()=>{const v=cap1(s.querySelector("#bN").value);if(!v)return;(st.bank[key]=st.bank[key]||[]).push(v);const H=st.hide[key]||[];const i=H.indexOf(norm(v));if(i>=0)H.splice(i,1);save();s.querySelector("#bN").value="";draw(s)}})}
+function motSheet(cid){const c=S.children[cid];openSheet(`<h3>Ses mots · ${esc(c.name)}</h3><p class="tiny muted" style="margin:0">${fmtD(U.date,true)} · écrivez la phrase telle quelle</p><textarea class="field" id="mT" autofocus placeholder="« Regarde, j'ai fait une montagne ! »"></textarea><div class="row" style="margin-top:6px"><button class="btn primary" id="mOk">Enregistrer</button>${micBtn("mT")}<button class="btn" id="mNo">Fermer</button></div>`,s=>{
+  s.querySelector("#mNo").onclick=closeSheet;s.querySelector("#mOk").onclick=()=>{const t=s.querySelector("#mT").value.trim().replace(/^[«"]\s*|\s*[»"]$/g,"");if(!t)return;(c.mots=c.mots||[]).push({id:uid("m"),date:U.date,text:t});save();closeSheet();render()}})}
 function facAgg(c){const m={};(c.fac||[]).forEach(f=>{const k=norm(f.label);const e=m[k]=m[k]||{label:f.label,fam:f.fam||"",n:0,last:"",ids:[]};e.n++;e.ids.push(f.id);if((f.date||"")>e.last)e.last=f.date||""});return Object.values(m).sort((a,b)=>b.n-a.n||b.last.localeCompare(a.last))}
 function famOf(label){const n=norm(label);for(const [k,F] of Object.entries(FAC))if(F.L.some(x=>norm(x)===n))return k;return ""}
 function facSheet(cid,rid){const c=S.children[cid];const r=rid?REPI[rid]:null;const sel=new Set();const parts=r?r.a.split(",").map(x=>x.trim()).filter(Boolean).map(x=>x.charAt(0).toUpperCase()+x.slice(1)):[];
@@ -284,6 +286,8 @@ function viewPortrait(cid,c){const g=S.groups[c.groupId]||{};const nPres=Object.
   ${(c.pas||[]).slice().sort((a,b)=>(a.status==="fait")-(b.status==="fait")||(b.date||"").localeCompare(a.date||"")).map(p=>{const ln=(p.notes||[]).slice(-1)[0];return `<div class="pas"><button class="st ${p.status==="fait"?"fait":"cours"}" data-act="pasSt" data-id="${cid}" data-p="${p.id}">${p.status==="fait"?"Fait":"En cours"}</button><div class="tx"><b>${esc(p.text)}</b>${p.rep?`<span class="tiny">${esc(repLabel(p.rep))}</span>`:""}${ln?`<div class="tiny" style="font-style:italic">« ${esc(ln.text)} » · ${fmtD(ln.date)}</div>`:""}</div><button class="x" data-act="pasNote" data-id="${cid}" data-p="${p.id}" aria-label="Note">✎</button><button class="x" data-act="pasDel" data-id="${cid}" data-p="${p.id}" aria-label="Retirer">✕</button></div>`}).join("")||`<p class="muted small">Aucun prochain pas.</p>`}
   <div class="row"><input class="field" id="pasT" placeholder="Ex. : offrir des jeux de transvasement" style="flex:1 1 180px"><button class="btn small primary" data-act="pasAdd" data-id="${cid}">Ajouter</button></div>
   ${sug.length?`<details class="sec" style="margin-top:8px"><summary>Suggestions (${sug.length})</summary>${sug.map(s=>`<button class="sug" data-act="pasSug" data-id="${cid}" data-t="${esc(s.t)}" data-r="${s.rep}"><span>+ ${esc(s.t)}</span><small>${esc(s.why)}</small></button>`).join("")}</details>`:""}</section>`;
+  const MW=(c.mots||[]).slice().sort((a,b)=>b.date.localeCompare(a.date));
+  h+=`<section class="card"><div class="row sb"><h3 style="margin:0">Ses mots</h3><button class="btn small" data-act="motAdd" data-id="${cid}">💬 Ajouter</button></div><p class="tiny muted" style="margin:2px 0 6px">Une phrase de l'enfant, telle qu'il l'a dite. Elle peut aller dans son portrait.</p>${MW.length?MW.slice(0,6).map(m=>`<div class="entry"><span class="when">${fmtD(m.date)}</span><span class="txt" style="font-style:italic">« ${esc(m.text)} »</span><button class="x" data-act="motDel" data-id="${cid}" data-m="${m.id}" aria-label="Supprimer">✕</button></div>`).join(""):`<p class="muted small">Rien encore.</p>`}</section>`;
   const N=(c.notes||[]).slice().sort((a,b)=>(b.date+b.id).localeCompare(a.date+a.id));
   h+=`<section class="card"><div class="row sb"><h3 style="margin:0">Notes</h3><button class="btn small" data-act="noteAdd" data-id="${cid}">✎ Ajouter</button></div>${N.length?N.slice(0,12).map(n=>`<div class="entry"><span class="when">${fmtD(n.date)}</span><span class="txt">${esc(n.text)}<span class="where">${[n.dom?DOMS[n.dom].court:"",n.rep?repLabel(n.rep):"",n.moment?MOM[n.moment]:""].filter(Boolean).map(esc).join(" · ")}</span></span><button class="x" data-act="noteDel" data-id="${cid}" data-n="${n.id}" aria-label="Supprimer">✕</button></div>`).join("")+(N.length>12?`<p class="tiny muted">+ ${N.length-12} notes plus anciennes</p>`:""):`<p class="muted small">Aucune note.</p>`}</section>`;
   const P=(c.photos||[]).slice().sort((a,b)=>(b.d||"").localeCompare(a.d||""));
@@ -340,12 +344,14 @@ function qSortSheet(gid,qid){const g=S.groups[gid];const q=(g.inbox||[]).find(x=
 function kidEditSheet(cid){const c=S.children[cid];
   openSheet(`<h3>Réglages · ${esc(c.name)}</h3><label class="f">Prénom<input class="field" id="kN" value="${esc(c.name)}"></label><label class="f">Date de naissance<input type="date" class="field" id="kD" value="${c.dob||""}"></label>
   <label class="f">Ce qui l'allume (intérêts)<input class="field" id="kI" value="${esc(c.interets||"")}"></label><label class="f">Langues parlées à la maison<input class="field" id="kL" value="${esc(c.langues||"")}"></label>
+  <label class="f">Salutation dans la langue de la famille (pour le portrait)<input class="field" id="kS" value="${esc(c.salut||"")}" placeholder="Ex. : Kwei Léa !"></label>
+  <label class="f">Ce que ma famille nous dit<textarea class="field" id="kFD">${esc(c.familleDit||"")}</textarea></label>
   <label class="f">Famille, pratiques à respecter<textarea class="field" id="kF">${esc(c.famille||"")}</textarea></label>
   <p class="small" style="font-weight:600;margin:8px 0 4px">Avatar</p><div class="row">${AVATARS.map(a=>`<button class="chip${(c.avatar||"renard")===a?" on":""}" data-av="${a}" style="padding:2px"><img src="${img("avatar-"+a)}" alt="${a}" style="width:38px;height:38px"></button>`).join("")}</div>
   <div class="row" style="margin-top:12px"><button class="btn primary" id="kOk">Enregistrer</button><button class="btn" id="kNo">Fermer</button><button class="btn danger small" id="kDel" style="margin-left:auto">Retirer l'enfant</button></div>`,s=>{
     let av=c.avatar||"renard";s.querySelectorAll("[data-av]").forEach(b=>b.onclick=()=>{av=b.dataset.av;s.querySelectorAll("[data-av]").forEach(x=>x.classList.toggle("on",x===b))});
     s.querySelector("#kNo").onclick=closeSheet;
-    s.querySelector("#kOk").onclick=()=>{c.name=s.querySelector("#kN").value.trim()||c.name;c.dob=s.querySelector("#kD").value;c.interets=s.querySelector("#kI").value.trim();c.langues=s.querySelector("#kL").value.trim();c.famille=s.querySelector("#kF").value.trim();c.avatar=av;save();closeSheet();render()};
+    s.querySelector("#kOk").onclick=()=>{c.name=s.querySelector("#kN").value.trim()||c.name;c.dob=s.querySelector("#kD").value;c.interets=s.querySelector("#kI").value.trim();c.langues=s.querySelector("#kL").value.trim();c.famille=s.querySelector("#kF").value.trim();c.salut=s.querySelector("#kS").value.trim();c.familleDit=s.querySelector("#kFD").value.trim();c.avatar=av;save();closeSheet();render()};
     s.querySelector("#kDel").onclick=e=>{const b=e.currentTarget;if(!b.dataset.sure){b.dataset.sure=1;b.textContent="Toucher encore pour confirmer";return}const gid=c.groupId;delete S.children[cid];save();closeSheet();location.hash="#g-"+gid}})}
 function groupEditSheet(gid){const g=S.groups[gid];
   openSheet(`<h3>Réglages du groupe</h3><label class="f">Nom<input class="field" id="gN" value="${esc(g.name)}"></label><div class="row" style="margin-top:12px"><button class="btn primary" id="gOk">Enregistrer</button><button class="btn" id="gNo">Fermer</button><button class="btn danger small" id="gDel" style="margin-left:auto">Supprimer le groupe</button></div>`,s=>{
@@ -366,7 +372,10 @@ function pasNoteSheet(cid,pid){const c=S.children[cid];const p=(c.pas||[]).find(
     s.querySelector("#pNo").onclick=closeSheet;s.querySelector("#pOk").onclick=()=>{const t=s.querySelector("#pT").value.trim();if(!t)return;(p.notes=p.notes||[]).push({date:U.date,text:t});(c.notes=c.notes||[]).push({id:uid("n"),date:U.date,text:"Prochain pas « "+p.text+" » : "+t,rep:p.rep||"",dom:p.rep&&REPI[p.rep]?REPI[p.rep].dom:"",src:"manuel"});save();closeSheet();render()}})}
 async function photoViewSheet(cid,pid){const c=S.children[cid];const p=(c.photos||[]).find(x=>x.id===pid);if(!p)return;const src=await phSrc(pid);
   openSheet(`<img src="${src}" alt="" style="width:100%;border-radius:12px"><p class="small">${fmtD(p.d,true)}${p.rep?" · "+esc(repLabel(p.rep)):""}</p><input class="field" id="phC" value="${esc(p.cap||"")}" placeholder="Ce qu'on voit (facultatif)"><select class="field" id="phR" style="margin-top:6px">${repOptions(c,p.rep||"")}</select>
+  <div class="row" style="margin-top:8px"><button class="chip${p.cover?" on":""}" id="phCov">⭐ Photo de couverture</button><button class="chip${p.creation?" on":""}" id="phCre">🎨 Sa création</button></div>
   <div class="row" style="margin-top:10px"><button class="btn primary" id="phOk">Enregistrer</button><button class="btn" id="phNo">Fermer</button><button class="btn danger small" id="phDel" style="margin-left:auto">Supprimer</button></div>`,s=>{
+    s.querySelector("#phCov").onclick=e=>{const on=!p.cover;(c.photos||[]).forEach(x=>delete x.cover);if(on)p.cover=true;e.currentTarget.classList.toggle("on",on);save()};
+    s.querySelector("#phCre").onclick=e=>{p.creation=!p.creation;e.currentTarget.classList.toggle("on",p.creation);save()};
     s.querySelector("#phNo").onclick=closeSheet;s.querySelector("#phOk").onclick=()=>{p.cap=s.querySelector("#phC").value.trim();const v=s.querySelector("#phR").value;p.rep=v&&!v.startsWith("d:")?v:"";save();closeSheet();render()};
     s.querySelector("#phDel").onclick=async e=>{const b=e.currentTarget;if(!b.dataset.sure){b.dataset.sure=1;b.textContent="Toucher encore pour confirmer";return}c.photos=c.photos.filter(x=>x.id!==pid);await tx("photos","readwrite",st=>st.delete(pid));save();closeSheet();render()}})}
 async function addPhoto(cid,file,rid){const c=S.children[cid];try{const bmp=await createImageBitmap(file);const sc=Math.min(1,1600/Math.max(bmp.width,bmp.height));const cv=document.createElement("canvas");cv.width=Math.round(bmp.width*sc);cv.height=Math.round(bmp.height*sc);cv.getContext("2d").drawImage(bmp,0,0,cv.width,cv.height);const blob=await new Promise(r=>cv.toBlob(r,"image/jpeg",.82));const id=uid("ph");await tx("photos","readwrite",st=>st.put(blob,id));(c.photos=c.photos||[]).push(Object.assign({id,d:U.date},rid?{rep:rid}:{}));save();render();toast("Photo ajoutée")}catch(e){toast("La photo n'a pas pu être ajoutée.")}}
@@ -399,12 +408,13 @@ function instrText(gid){const g=S.groups[gid];const K=kidsOf(gid);
 1. Réécris chaque note proprement, en gardant tous les faits et les mots des enfants. N'invente rien, n'interprète pas, reste positif et descriptif.
 2. Reclasse chaque note au bon enfant (une note sur plusieurs enfants va à chacun), au bon domaine et, si c'est clair, au bon repère (code ci-dessous). Une note sur le groupe en entier va dans "groupe".
 3. Si la note montre clairement un niveau pour un repère, indique-le : commence (avec beaucoup d'aide), envoie (avec un peu d'aide), acquis (seul). Sinon, laisse vide.
-4. Note ce qui a aidé l'enfant (facilitateurs), avec les mots de la liste quand c'est possible : ${Object.values(FAC).flatMap(F=>F.L).join(", ")}.
+4. Si l'enfant a dit une phrase notée mot pour mot, mets-la dans "paroles", telle quelle.
+   Note ce qui a aidé l'enfant (facilitateurs), avec les mots de la liste quand c'est possible : ${Object.values(FAC).flatMap(F=>F.L).join(", ")}.
 5. Propose au besoin 1 à 3 mots-clés (force ou défi) et la sphère de la roue de la médecine : tete (comprendre, langage), esprit (liens, vie sociale), coeur (émotions, confiance), corps (bouger, sentir, soins).
 6. Réponds seulement avec le bloc ci-dessous, sans autre texte.
 
 === BLOC AWACAK ===
-{"date":"AAAA-MM-JJ","groupe":[{"texte":"…"}],"extraits":[{"enfant":"Prénom","domaine":"phys|cog|lang|soc","repere":"code ou vide","niveau":"commence|envoie|acquis ou vide","moment":"A|J|C|H|D|R|T|S|P ou vide","texte":"…","motscles":[{"mot":"1 à 3 mots","sphere":"tete|esprit|coeur|corps","type":"force|defi"}],"facilitateurs":["ce qui a aidé"],"prochainpas":"idée d'un prochain pas, ou vide"}]}
+{"date":"AAAA-MM-JJ","groupe":[{"texte":"…"}],"extraits":[{"enfant":"Prénom","domaine":"phys|cog|lang|soc","repere":"code ou vide","niveau":"commence|envoie|acquis ou vide","moment":"A|J|C|H|D|R|T|S|P ou vide","texte":"…","motscles":[{"mot":"1 à 3 mots","sphere":"tete|esprit|coeur|corps","type":"force|defi"}],"facilitateurs":["ce qui a aidé"],"paroles":["phrase dite par l'enfant, mot pour mot"],"prochainpas":"idée d'un prochain pas, ou vide"}]}
 === FIN BLOC ===
 
 Moments : ${Object.entries(MOM).map(([k,n])=>k+" = "+n).join(", ")}.
@@ -433,6 +443,7 @@ function importSheet(gid,d){const g=S.groups[gid];const pe=g.pendingExport;
           (c.notes=c.notes||[]).push({id:uid("n"),date:it.date,text:x.texte,rep:rid,dom:rid?REPI[rid].dom:(DOMS[x.domaine]?x.domaine:""),moment:MOM[x.moment]?x.moment:"",src:"ia"});n++;
           const lv=NV[x.niveau];if(rid&&lv)setLvl(c,rid,lv,it.date);
           (x.motscles||[]).forEach(k=>{if(k&&k.mot&&SPH[k.sphere])(c.kw=c.kw||[]).push({id:uid("k"),mot:k.mot,sph:k.sphere,t:k.type==="defi"?"defi":"force",date:it.date})});
+          (x.paroles||[]).forEach(t=>{if(t&&typeof t==="string")(c.mots=c.mots||[]).push({id:uid("m"),date:it.date,text:t.replace(/^[«"]\s*|\s*[»"]$/g,"")})});
           (x.facilitateurs||[]).forEach(l=>{if(l&&typeof l==="string")(c.fac=c.fac||[]).push({id:uid("f"),label:l.charAt(0).toUpperCase()+l.slice(1),fam:famOf(l),date:it.date,rep:rid})});
           if(x.prochainpas&&!(c.pas||[]).some(p=>norm(p.text)===norm(x.prochainpas)))(c.pas=c.pas||[]).push({id:uid("p"),text:x.prochainpas,rep:rid,status:"cours",date:it.date})});
         if(pe&&dates.has(pe.date))removeExported(gid);
@@ -446,7 +457,8 @@ function portraitData(c){const out={};Object.entries(DOMS).forEach(([dk,D])=>{co
 function portraitPrompt(c,per){const P=portraitData(c);const A=kwAgg(c);
   return `Rédige le portrait périodique (dossier éducatif, ministère de la Famille du Québec) de ${c.name}${c.dob?", "+ageLabel(c.dob):""}, pour la période de ${per}. Il couvre les 4 domaines : physique et moteur, cognitif, langagier, social et affectif.
 Pour chaque domaine : 3 à 5 phrases simples pour les parents, positives, descriptives et respectueuses, qui soulignent les forces, les intérêts, les progrès et, s'il y a lieu, les défis présentés comme ce sur quoi on travaille. Pas de jargon, pas de diagnostic, rien d'inventé : utilise seulement les observations ci-dessous. Ajoute "aide" : 1 ou 2 phrases sur ce qui l'aide (à partir des facilitateurs ci-dessous). Ajoute "suite" : 2 ou 3 prochains pas que nous allons offrir.
-Réponds seulement en JSON : {"physique":"…","cognitif":"…","langagier":"…","social":"…","aide":"…","suite":"…"}
+Ajoute "aime" : 1 ou 2 phrases au « je », à la hauteur de l'enfant, sur ce qu'il aime et ses forces (ex. « J'aime grimper et construire des maisons. »).
+Réponds seulement en JSON : {"aime":"…","physique":"…","cognitif":"…","langagier":"…","social":"…","aide":"…","suite":"…"}
 ${c.interets?"\nIntérêts : "+c.interets:""}${c.langues?"\nLangues : "+c.langues:""}${c.famille?"\nÀ respecter (famille) : "+c.famille:""}
 Forces (roue) : ${A.filter(x=>x.t==="force").map(x=>x.mot).join(", ")||"—"}
 Défis (roue) : ${A.filter(x=>x.t==="defi").map(x=>x.mot).join(", ")||"—"}
@@ -455,37 +467,75 @@ Ce qui l'aide (facilitateurs notés) : ${facAgg(c).map(x=>x.label+(x.n>1?" ("+x.
 Prochains pas actuels : ${(c.pas||[]).map(p=>p.text+" ("+(p.status==="fait"?"fait":"en cours")+")").join(" ; ")||"—"}
 
 ${Object.entries(DOMS).map(([dk,D])=>`${D.nom.toUpperCase()}\nRepères observés : ${P[dk].obs.join(" ; ")||"—"}\nNotes : ${P[dk].notes.join(" | ")||"—"}`).join("\n\n")}`}
+function domPhotos(c,dk){return (c.photos||[]).filter(p=>p.rep&&REPI[p.rep]&&REPI[p.rep].dom===dk&&!p.creation).sort((a,b)=>(b.d||"").localeCompare(a.d||""))}
 function portraitSheet(cid){const c=S.children[cid];const per=periodLabel();c.portraits=c.portraits||{};const cur=c.portraits[per]||{};
   const F=[["physique","Physique et moteur"],["cognitif","Cognitif"],["langagier","Langagier"],["social","Social et affectif"],["aide","Ce qui l'aide"],["suite","Pour la suite"]];
+  const DK={physique:"phys",cognitif:"cog",langagier:"lang",social:"soc"};
   if(!cur.aide&&facAgg(c).length)cur.aide=facAgg(c).slice(0,6).map(x=>x.label).join(" ; ");
   if(!cur.suite&&(c.pas||[]).length)cur.suite=(c.pas||[]).filter(p=>p.status!=="fait").map(p=>p.text).join(" ; ");
+  const forces=kwAgg(c).filter(x=>x.t==="force").sort((a,b)=>b.n-a.n).slice(0,4).map(x=>x.mot);
+  if(cur.aime==null)cur.aime=[c.interets?"J'aime "+c.interets.replace(/^j'aime\s*/i,""):"",forces.length?"Mes forces : "+forces.join(", "):""].filter(Boolean).join(". ")+(c.interets||forces.length?".":"");
+  if(cur.mots==null)cur.mots=(c.mots||[]).slice().sort((a,b)=>b.date.localeCompare(a.date)).slice(0,2).map(m=>m.text).join("\n");
+  if(cur.famille==null)cur.famille=c.familleDit||"";
+  if(cur.salut==null)cur.salut=c.salut||"";
+  const O=cur.opts=Object.assign({cover:true,photos:true,creation:true},cur.opts||{});const PS=cur.ph=Object.assign({},cur.ph||{});
+  Object.entries(DK).forEach(([k,dk])=>{if(PS[k]===undefined){const L=domPhotos(c,dk);PS[k]=L.length?L[0].id:""}});
+  const cover=(c.photos||[]).find(p=>p.cover),crea=(c.photos||[]).filter(p=>p.creation).sort((a,b)=>(b.d||"").localeCompare(a.d||""))[0];
+  const tog=(k,n,dis)=>`<button class="chip${O[k]&&!dis?" on":""}" data-o="${k}" ${dis?"disabled":""}>${n}${dis?" (aucune)":""}</button>`;
   openSheet(`<h3>Portrait périodique · ${esc(c.name)}</h3><p class="small muted" style="margin:0">Période : ${per}. À compléter en novembre et en mai, à remettre aux parents au plus tard le 15 décembre et le 15 juin.</p>
   <div class="row" style="margin:10px 0"><button class="btn small" id="ppAI">1. Copier pour mon IA</button><button class="btn small" id="ppPaste">2. Coller la réponse</button></div><div id="ppIn"></div>
-  ${F.map(([k,n])=>`<label class="f">${n}<textarea class="field" id="pp_${k}" style="min-height:110px">${esc(cur[k]||"")}</textarea></label>`).join("")}
+  <p class="small" style="font-weight:700;margin:8px 0 2px">Touche personnelle</p><div class="chips">${tog("cover","⭐ Photo de couverture",!cover)}${tog("photos","📷 Photos dans les domaines",false)}${tog("creation","🎨 Sa création",!crea)}</div>
+  <label class="f">Salutation<input class="field" id="pp_salut" value="${esc(cur.salut)}" placeholder="Ex. : Kwei Léa ! (dans la langue de la famille)"></label>
+  <label class="f">Ce que j'aime<textarea class="field" id="pp_aime" style="min-height:60px">${esc(cur.aime)}</textarea></label>
+  <label class="f">Mes mots à moi (une phrase par ligne)<textarea class="field" id="pp_mots" style="min-height:60px">${esc(cur.mots)}</textarea></label>
+  ${F.map(([k,n])=>{const dk=DK[k];const L=dk?domPhotos(c,dk):[];return `<label class="f">${n}<textarea class="field" id="pp_${k}" style="min-height:100px">${esc(cur[k]||"")}</textarea></label>${dk&&L.length?`<select class="field ppph" data-k="${k}" style="margin-top:-2px;font-size:.85rem"><option value="">Pas de photo</option>${L.map(p=>`<option value="${p.id}" ${PS[k]===p.id?"selected":""}>📷 ${fmtD(p.d)} · ${esc(repLabel(p.rep))}</option>`).join("")}</select>`:""}`}).join("")}
+  <label class="f">Ce que ma famille nous a dit<textarea class="field" id="pp_famille" style="min-height:60px">${esc(cur.famille)}</textarea></label>
   <label class="f">Rédigé par<input class="field" id="ppBy" value="${esc(cur.by||S.settings.me||"")}"></label><label class="f">Date<input type="date" class="field" id="ppD" value="${cur.date||todayISO()}"></label>
   <div class="row" style="margin-top:10px"><button class="btn primary" id="ppSave">Enregistrer</button><button class="btn" id="ppDoc">Créer le document</button><button class="btn ghost" id="ppNo">Fermer</button></div>`,s=>{
-    const grab=()=>{const o={};F.forEach(([k])=>o[k]=s.querySelector("#pp_"+k).value.trim());o.by=s.querySelector("#ppBy").value.trim();o.date=s.querySelector("#ppD").value;return o};
+    s.querySelectorAll("[data-o]").forEach(b=>b.onclick=()=>{O[b.dataset.o]=!O[b.dataset.o];b.classList.toggle("on",O[b.dataset.o])});
+    const grab=()=>{const o={};F.concat([["salut"],["aime"],["mots"],["famille"]]).forEach(([k])=>o[k]=s.querySelector("#pp_"+k).value.trim());o.by=s.querySelector("#ppBy").value.trim();o.date=s.querySelector("#ppD").value;o.opts=O;o.ph={};s.querySelectorAll(".ppph").forEach(x=>o.ph[x.dataset.k]=x.value);Object.keys(DK).forEach(k=>{if(o.ph[k]===undefined)o.ph[k]=""});return o};
     s.querySelector("#ppNo").onclick=closeSheet;s.querySelector("#ppAI").onclick=()=>copyText(portraitPrompt(c,per),"Copié : collez dans votre IA");
-    s.querySelector("#ppPaste").onclick=()=>{s.querySelector("#ppIn").innerHTML=`<textarea class="field" id="ppR" placeholder="Collez la réponse JSON de l'IA"></textarea><button class="btn small primary" id="ppFill" style="margin-top:6px">Remplir</button>`;s.querySelector("#ppFill").onclick=()=>{const t=s.querySelector("#ppR").value;const i=t.indexOf("{"),j=t.lastIndexOf("}");try{const o=JSON.parse(t.slice(i,j+1));F.forEach(([k])=>{if(o[k])s.querySelector("#pp_"+k).value=o[k]});s.querySelector("#ppIn").innerHTML="";toast("Textes remplis : relisez et ajustez")}catch(e){toast("Je ne comprends pas cette réponse.")}}};
+    s.querySelector("#ppPaste").onclick=()=>{s.querySelector("#ppIn").innerHTML=`<textarea class="field" id="ppR" placeholder="Collez la réponse JSON de l'IA"></textarea><button class="btn small primary" id="ppFill" style="margin-top:6px">Remplir</button>`;s.querySelector("#ppFill").onclick=()=>{const t=s.querySelector("#ppR").value;const i=t.indexOf("{"),j=t.lastIndexOf("}");try{const o=JSON.parse(t.slice(i,j+1));F.forEach(([k])=>{if(o[k])s.querySelector("#pp_"+k).value=o[k]});if(o.aime)s.querySelector("#pp_aime").value=o.aime;s.querySelector("#ppIn").innerHTML="";toast("Textes remplis : relisez et ajustez")}catch(e){toast("Je ne comprends pas cette réponse.")}}};
     s.querySelector("#ppSave").onclick=()=>{c.portraits[per]=grab();save();toast("Portrait enregistré")};
     s.querySelector("#ppDoc").onclick=async()=>{c.portraits[per]=grab();save();const html=await portraitDoc(c,per,c.portraits[per]);download(`portrait-${norm(c.name).replace(/ /g,"-")}-${per.replace(/ /g,"-")}.html`,html,"text/html");toast("Document créé : ouvrez-le pour imprimer ou enregistrer en PDF")}})}
 async function toDataURL(u){try{const r=await fetch(u);const b=await r.blob();return await new Promise(res=>{const f=new FileReader();f.onload=()=>res(f.result);f.readAsDataURL(b)})}catch(e){return ""}}
-async function portraitDoc(c,per,P){const E=esc;const ic={};for(const k of Object.keys(SPH))ic[k]=await toDataURL(`img/sph-${k}.webp`);const logo=await toDataURL("img/enfants.png");
+async function blobURL(id){const b=await getP("photos",id);return b?await new Promise(res=>{const f=new FileReader();f.onload=()=>res(f.result);f.readAsDataURL(b)}):""}
+async function portraitDoc(c,per,P){const E=esc;const ic={};for(const k of Object.keys(SPH))ic[k]=await toDataURL(`img/sph-${k}.webp`);const logo=await toDataURL("img/enfants.png");const O=P.opts||{};
   let wheel=wheelHTML(c).replace(/<img class="wi (\w)" src="img\/sph-(\w+)\.webp" alt="">/g,(m,p,k)=>`<img class="wi ${p}" src="${ic[k]}" alt="">`).replace(/ data-act="kwOpen"[^>]*?data-t="\w+"/g,"");
-  const box=(t,v)=>`<section class="bx"><h2>${t}</h2><p>${E(v||"").replace(/\n/g,"<br>")||"<span class='m'>—</span>"}</p></section>`;
+  const cov=O.cover?(c.photos||[]).find(p=>p.cover):null;const covU=cov?await blobURL(cov.id):"";
+  const crea=O.creation?(c.photos||[]).filter(p=>p.creation).sort((a,b)=>(b.d||"").localeCompare(a.d||""))[0]:null;const creaU=crea?await blobURL(crea.id):"";
+  const PH={};if(O.photos)for(const [k,id] of Object.entries(P.ph||{})){if(id){const ph=(c.photos||[]).find(x=>x.id===id);if(ph)PH[k]={u:await blobURL(id),cap:ph.cap||(ph.rep?repLabel(ph.rep):""),d:ph.d}}}
+  const txt=v=>E(v||"").replace(/\n/g,"<br>");
+  const box=(k,t,v)=>`<section class="bx">${PH[k]&&PH[k].u?`<figure><img src="${PH[k].u}" alt=""><figcaption>${E(PH[k].cap||"")}</figcaption></figure>`:""}<h2>${t}</h2><p>${txt(v)||"<span class='m'>—</span>"}</p></section>`;
+  const mots=(P.mots||"").split("\n").map(x=>x.trim()).filter(Boolean);
   return `<!DOCTYPE html><html lang="fr-CA"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Portrait périodique · ${E(c.name)}</title><style>
-@page{size:Letter;margin:.6in}body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#2a2622;max-width:7.3in;margin:0 auto;padding:18px;line-height:1.5}
-header{display:flex;align-items:center;gap:14px;border-bottom:3px solid #E0782F;padding-bottom:10px}header img{width:70px}h1{margin:0;font-size:22pt;color:#E0782F}.sub{margin:2px 0 0;color:#6a615a}
-.id{display:grid;grid-template-columns:1fr 1fr;gap:4px 16px;margin:14px 0;font-size:10.5pt}.bx{border:1px solid #EADFD3;border-left:5px solid #E0782F;border-radius:10px;padding:10px 14px;margin:12px 0;break-inside:avoid;background:#FFFBF6}.bx h2{margin:0 0 4px;font-size:13pt}.bx p{margin:0;font-size:11pt}.m{color:#999}
-.wheelwrap{position:relative;width:4.6in;aspect-ratio:1;margin:10px auto}.wheelwrap svg{position:absolute;inset:0;width:100%;height:100%}.q{position:absolute;display:flex;flex-wrap:wrap;gap:4px;align-content:center;justify-content:center;overflow:hidden}.qn{left:22%;right:22%;top:6%;height:24%}.qs{left:22%;right:22%;bottom:6%;height:24%}.qe{right:4%;top:30%;width:24%;height:40%}.qw{left:4%;top:30%;width:24%;height:40%}
+@page{size:Letter;margin:.55in}*{box-sizing:border-box}body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#2a2622;max-width:7.4in;margin:0 auto;padding:18px;line-height:1.5}
+header{display:flex;align-items:center;gap:12px;border-bottom:3px solid #E0782F;padding-bottom:8px}header img{width:56px}h1{margin:0;font-size:20pt;color:#E0782F}.sub{margin:0;color:#6a615a;font-size:10pt}
+.hello{font-size:22pt;font-weight:700;color:#E0782F;text-align:center;margin:14px 0 6px;font-family:Georgia,serif}
+.cover{display:flex;justify-content:center;margin:6px 0 10px}.cover img{max-width:100%;max-height:3.6in;border-radius:14px;box-shadow:0 2px 10px rgba(0,0,0,.15);object-fit:cover}
+.id{display:grid;grid-template-columns:1fr 1fr;gap:3px 16px;margin:10px 0;font-size:10.5pt}
+.aime{background:#FDF1E6;border-radius:14px;padding:10px 16px;margin:10px 0;font-size:12pt}.aime b{color:#E0782F}
+.mots{margin:10px 0;padding:6px 18px;border-left:4px solid #F2C335;font-family:Georgia,serif;font-style:italic;font-size:13pt;color:#4a3f36}.mots p{margin:4px 0}
+.bx{border:1px solid #EADFD3;border-left:5px solid #E0782F;border-radius:10px;padding:10px 14px;margin:12px 0;break-inside:avoid;background:#FFFBF6;overflow:hidden}.bx h2{margin:0 0 4px;font-size:13pt}.bx p{margin:0;font-size:11pt}.m{color:#999}
+.bx figure{float:right;width:2.1in;margin:0 0 6px 12px}.bx figure img{width:100%;height:1.6in;object-fit:cover;border-radius:8px}.bx figcaption{font-size:8.5pt;color:#6a615a;line-height:1.3;margin-top:3px}
+.fam{border-left-color:#F2C335}
+.crea{text-align:center;margin:10px 0}.crea img{max-width:100%;max-height:3.4in;border-radius:12px}
+.wheelwrap{position:relative;width:4.2in;aspect-ratio:1;margin:10px auto}.wheelwrap svg{position:absolute;inset:0;width:100%;height:100%}.q{position:absolute;display:flex;flex-wrap:wrap;gap:4px;align-content:center;justify-content:center;overflow:hidden}.qn{left:22%;right:22%;top:6%;height:24%}.qs{left:22%;right:22%;bottom:6%;height:24%}.qe{right:4%;top:30%;width:24%;height:40%}.qw{left:4%;top:30%;width:24%;height:40%}
 .k{background:rgba(255,255,255,.94);border:0;border-radius:999px;padding:2px 8px;font:inherit;font-weight:700;color:#2a2622;line-height:1.2}.k.defi{outline:2px dashed #C9573F;outline-offset:-2px}.wc{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:24%;text-align:center;font-weight:700;font-size:10pt}.wi{position:absolute;width:9%;z-index:2}.wi.n{left:50%;top:30.5%;transform:translateX(-50%)}.wi.s{left:50%;bottom:30.5%;transform:translateX(-50%)}.wi.e{right:30.5%;top:50%;transform:translateY(-50%)}.wi.w{left:30.5%;top:50%;transform:translateY(-50%)}
-.leg{display:grid;grid-template-columns:repeat(4,1fr);text-align:center;font-size:9pt}.leg img{width:30px}.sig{margin-top:22px;display:grid;grid-template-columns:1fr 1fr;gap:24px;font-size:10.5pt}.sig div{border-top:1px solid #999;padding-top:4px}.pb{break-before:page}
+.leg{display:grid;grid-template-columns:repeat(4,1fr);text-align:center;font-size:9pt}.leg img{width:28px}.sig{margin-top:26px;display:grid;grid-template-columns:1fr 1fr;gap:24px;font-size:10.5pt}.sig div{border-top:1px solid #999;padding-top:4px}.pb{break-before:page}h3{color:#E0782F;font-size:14pt;margin:14px 0 4px}
 @media print{body{padding:0}}</style></head><body>
 <header><img src="${logo}" alt=""><div><h1>Portrait périodique</h1><p class="sub">Dossier éducatif de l'enfant · ${E(per)}</p></div></header>
+${P.salut?`<div class="hello">${E(P.salut)}</div>`:""}
+${covU?`<div class="cover"><img src="${covU}" alt=""></div>`:""}
 <div class="id"><div><b>Enfant :</b> ${E(c.name)}</div><div><b>Date de naissance :</b> ${c.dob?E(fmtD(c.dob,true)):"—"}</div><div><b>Rédigé par :</b> ${E(P.by||"")}</div><div><b>Date de rédaction :</b> ${P.date?E(fmtD(P.date,true)):"—"}</div></div>
-${box("Physique et moteur",P.physique)}${box("Cognitif",P.cognitif)}${box("Langagier",P.langagier)}${box("Social et affectif",P.social)}${box("Ce qui l'aide",P.aide)}${box("Pour la suite",P.suite)}
-<div class="sig"><div>Signature de l'éducatrice</div><div>Date de remise au parent</div></div>
-<section class="pb"><h2 style="color:#E0782F">Ses forces dans la roue de la médecine</h2>${facAgg(c).length?`<p style="font-size:10.5pt"><b>Ce qui l'aide :</b> ${facAgg(c).map(x=>E(x.label)).join(" · ")}</p>`:""}${wheel}<div class="leg">${Object.entries(SPH).map(([k,s])=>`<div><img src="${ic[k]}" alt=""><br><b>${s.nom}</b><br>${s.d}</div>`).join("")}</div></section>
+${P.aime?`<div class="aime"><b>Ce que j'aime</b><br>${txt(P.aime)}</div>`:""}
+${mots.length?`<div class="mots"><b style="font-style:normal;font-family:system-ui;font-size:10pt;color:#8a6a00">Mes mots à moi</b>${mots.map(m=>`<p>« ${E(m)} »</p>`).join("")}</div>`:""}
+${box("physique","Physique et moteur",P.physique)}${box("cognitif","Cognitif",P.cognitif)}${box("langagier","Langagier",P.langagier)}${box("social","Social et affectif",P.social)}
+${P.famille?`<section class="bx fam"><h2>Ce que ma famille nous a dit</h2><p>${txt(P.famille)}</p></section>`:""}
+${box("","Ce qui l'aide",P.aide)}${box("","Pour la suite",P.suite)}
+<section class="pb">${creaU?`<h3>Ma création</h3><div class="crea"><img src="${creaU}" alt="">${crea.cap?`<p style="font-size:10pt;color:#6a615a">${E(crea.cap)}</p>`:""}</div>`:""}
+<h3>Mes forces dans la roue de la médecine</h3>${wheel}<div class="leg">${Object.entries(SPH).map(([k,s])=>`<div><img src="${ic[k]}" alt=""><br><b>${s.nom}</b><br>${s.d}</div>`).join("")}</div>
+<div class="sig"><div>Signature de l'éducatrice</div><div>Date de remise au parent</div></div></section>
 </body></html>`}
 /* ---------- Sauvegardes ---------- */
 function download(name,data,type){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([data],{type:type||"application/json"}));a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1000)}
@@ -493,7 +543,7 @@ async function copyText(t,msg){try{await navigator.clipboard.writeText(t);toast(
 function backup(){S.meta.lastBackup=new Date().toISOString();save();download(`awacak-sauvegarde-${todayISO()}.json`,JSON.stringify({awacak:1,at:S.meta.lastBackup,data:S}));toast("Sauvegarde téléchargée")}
 async function backupPhotos(){const keys=await keysP("photos");const out={};for(const k of keys){const b=await getP("photos",k);out[k]=await new Promise(res=>{const f=new FileReader();f.onload=()=>res(f.result);f.readAsDataURL(b)})}download(`awacak-photos-${todayISO()}.json`,JSON.stringify({awacakPhotos:1,photos:out}));toast(keys.length+" photos sauvegardées")}
 function mergeArr(a,b){const m=new Map();(a||[]).forEach(x=>m.set(x.id,x));(b||[]).forEach(x=>{if(x&&x.id&&!m.has(x.id))m.set(x.id,x)});return [...m.values()]}
-function mergeKid(a,b){const o=Object.assign({},b,a);["notes","kw","pas","photos","fac"].forEach(k=>o[k]=mergeArr(a[k],b[k]));o.obs=Object.assign({},b.obs||{});Object.entries(a.obs||{}).forEach(([r,L])=>{const M=new Map((o.obs[r]||[]).map(e=>[e.d,e]));L.forEach(e=>M.set(e.d,e));o.obs[r]=[...M.values()]});o.portraits=Object.assign({},b.portraits||{},a.portraits||{});return o}
+function mergeKid(a,b){const o=Object.assign({},b,a);["notes","kw","pas","photos","fac","mots"].forEach(k=>o[k]=mergeArr(a[k],b[k]));o.obs=Object.assign({},b.obs||{});Object.entries(a.obs||{}).forEach(([r,L])=>{const M=new Map((o.obs[r]||[]).map(e=>[e.d,e]));L.forEach(e=>M.set(e.d,e));o.obs[r]=[...M.values()]});o.portraits=Object.assign({},b.portraits||{},a.portraits||{});return o}
 function mergeGroup(a,b){const o=Object.assign({},b,a);o.inbox=mergeArr(a.inbox,b.inbox);o.notes=mergeArr(a.notes,b.notes);o.presences=Object.assign({},b.presences||{});Object.entries(a.presences||{}).forEach(([d,L])=>o.presences[d]=[...new Set([...(o.presences[d]||[]),...L])]);return o}
 async function readJSONFile(f){try{return JSON.parse(await f.text())}catch(e){toast("Fichier illisible.");return null}}
 async function importPhotos(o){let n=0;for(const [k,u] of Object.entries(o.photos||{})){try{const b=await (await fetch(u)).blob();await tx("photos","readwrite",st=>st.put(b,k));n++}catch(e){}}toast(n+" photos importées");render()}
@@ -521,6 +571,7 @@ document.addEventListener("click",e=>{const b=e.target.closest("[data-act]");if(
   else if(a==="portraitP")portraitSheet(id);
   else if(a==="piste"){pisteCycle(c,b.dataset.l,b.dataset.r||"");save();if(!$("#ov").classList.contains("on"))render()}
   else if(a==="bank")bankSheet(id,b.dataset.k,b.dataset.r);
+  else if(a==="motAdd")motSheet(id);else if(a==="motDel"){c.mots=(c.mots||[]).filter(m=>m.id!==b.dataset.m);save();render()}
   else if(a==="facAdd")facSheet(id,"");else if(a==="facFromRep")facSheet(id,b.dataset.r);else if(a==="facOpen")facOpenSheet(id,b.dataset.l);
   else if(a==="eclairs")eclairSheet(id);else if(a==="album")albumSheet(id);
   else if(a==="notesMenu")notesMenu(id);else if(a==="qSort")qSortSheet(id,b.dataset.q);
