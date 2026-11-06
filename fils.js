@@ -4,11 +4,12 @@
    Une étape est soit le code d'un repère existant (ex. "mf3-3"), soit [texte, tranche 0..4, moment, ce qui peut aider].
    cov : repères remplacés par le fil (cachés de la liste, sauf s'ils ont déjà été observés).
    noInt : pas de section « intérêt » pour ce fil.
+   exp : choix « Comment il explore » propres au fil (on peut en ajouter dans l'app).
    main : choix de la main utilisée.
    bes : bouton « l'utilise de lui-même » (texte propre au fil) ; absent = pas de bouton.
    "#Titre" dans les étapes = sous-titre (ex. Lancer, puis Attraper). */
 const FILS_RAW=[
- {id:"cis",bes:"Quand il en a besoin, de lui-même",main:true,sub:"mf",nom:"Ciseaux",ic:"✂️",st:[
+ {id:"cis",exp:["Regarde les autres", "Manipule les ciseaux", "Demande de l'aide", "Coupe autre chose (pâte, herbe)"],bes:"Quand il en a besoin, de lui-même",main:true,sub:"mf",nom:"Ciseaux",ic:"✂️",st:[
    "#Prise",
    ["Ouvre et ferme les ciseaux à deux mains",2,"J","Pinces de cuisine, pinces à linge, ciseaux adaptés"],
    ["Tient les ciseaux d'une main, pouce vers le haut",3,"J","« Le pouce regarde le ciel », ciseaux à sa taille"],
@@ -23,7 +24,7 @@ const FILS_RAW=[
   mL:"Ce qu'il découpe",mat:["Papier","Pâte à modeler","Carton","Pailles","Ficelle","Herbe ou feuilles"],
   aide:["Bandes étroites à couper d'un seul coup","Pâte à modeler à couper","Ciseaux à ressort au besoin","Ciseaux pour gaucher au besoin","Coin découpage libre avec retailles","« Le pouce regarde le ciel »"],
   cov:["mf4-1"]},
- {id:"cra",bes:"De lui-même (signer, faire une carte)",main:true,sub:"mf",nom:"Crayon et dessin",ic:"🖍️",st:[
+ {id:"cra",exp:["Gribouille librement", "Imite un dessin", "Trace dans le sable ou la neige", "Demande à dessiner"],bes:"De lui-même (signer, faire une carte)",main:true,sub:"mf",nom:"Crayon et dessin",ic:"🖍️",st:[
    "#Prise",
    ["Tient le crayon dans le poing, pouce vers le haut",1,"J","Gros crayons, craies épaisses, grande feuille fixée"],
    ["Tient avec les doigts, paume vers le bas",2,"J","Surface verticale (mur, chevalet), crayons courts"],
@@ -36,7 +37,7 @@ const FILS_RAW=[
   mL:"Avec quoi il trace",mat:["Crayon","Craie","Feutre","Pinceau","Doigt dans le sable ou la neige","Bâton dans la terre"],
   aide:["Surface verticale (mur, chevalet)","Crayons courts ou cassés","Dessiner ensemble","Tracer dans le sable, la neige ou la farine","Grande feuille fixée à la table"],
   cov:["mf3-1"]},
- {id:"enf",bes:"Quand il en a besoin, de lui-même",sub:"mf",nom:"Enfiler et lacer",ic:"🧵",st:[
+ {id:"enf",exp:["Manipule les perles", "Trie avant d'enfiler", "Demande de l'aide"],bes:"Quand il en a besoin, de lui-même",sub:"mf",nom:"Enfiler et lacer",ic:"🧵",st:[
    ["Met des objets dans un contenant par un trou",1,"J","Boîte à fente, couvercle percé, gros objets"],
    "mf2-2",
    ["Enfile sur un lacet semi-rigide",3,"J","Bout du lacet entouré de ruban adhésif, perles moyennes"],
@@ -44,20 +45,20 @@ const FILS_RAW=[
    ["Lace une carte ou une grande ouverture",4,"J","Grands trous, carton rigide, montrer « dessus, dessous »"]],
   mL:"Ce qu'il enfile",mat:["Perles","Pâtes","Céréales en anneaux","Pailles coupées","Éléments de la nature"],
   aide:["Lacet au bout rigide","Gros trous, puis plus petits","Contenant pour les perles","Fil avec une perle d'arrêt au bout"]},
- {id:"blo",bes:"Le choisit de lui-même",sub:"mf",nom:"Blocs et constructions",ic:"🧱",st:[
+ {id:"blo",exp:["Empile", "Aligne", "Détruit et recommence", "Invente une histoire avec"],bes:"Le choisit de lui-même",sub:"mf",nom:"Blocs et constructions",ic:"🧱",st:[
    "mf1-2","mf2-5",
    ["Aligne et agence des blocs à plat (route, enclos)",2,"J","Figurines et autos pour donner une raison au jeu"],
    ["Fait une tour de 8 à 10 blocs",3,"J","Surface plane et stable, blocs de même taille"],
    ["Construit une idée planifiée en 3D (maison, pont)",4,"J","Photos de constructions, dire son plan avant"]],
   mL:"Avec quoi il construit",mat:["Blocs de bois","Gros blocs mous","Blocs emboîtables","Boîtes","Branches et roches"],
   aide:["Détruire ensemble, recommencer","Photos des constructions des amis","Figurines pour inventer une histoire","Surface plane et stable"]},
- {id:"cas",bes:"Le choisit de lui-même",sub:"co",nom:"Casse-têtes",ic:"🧩",st:[
+ {id:"cas",exp:["Essaie au hasard", "Regarde l'image modèle", "Tourne les pièces", "Demande de l'aide"],bes:"Le choisit de lui-même",sub:"co",nom:"Casse-têtes",ic:"🧩",st:[
    "mf1-5","co2-3","mf3-5",
    ["Fait un casse-tête de 12 à 24 pièces",4,"J","Bordures d'abord, trier les couleurs"]],
   mL:"Sortes",mat:["Encastrements","Casse-tête cartonné","Casse-tête de plancher","Casse-tête fait maison (photo)"],
   aide:["Image modèle à côté","Bordures d'abord","Pièces à boutons pour commencer","Casse-tête avec un thème qu'il aime"],
   cov:["co1-3"]},
- {id:"jsy",bes:"Lance le jeu de lui-même",sub:"co",nom:"Le jeu",ic:"🧸",st:[
+ {id:"jsy",exp:["Imite les adultes", "Invente une histoire", "Un objet en devient un autre", "Joue un rôle"],bes:"Lance le jeu de lui-même",sub:"co",nom:"Le jeu",ic:"🧸",st:[
    "co0-6","co1-1",
    ["Construit, empile ou aligne pour le plaisir",2,"J","Blocs, boîtes, objets à empiler"],
    "co1-2",
@@ -65,7 +66,7 @@ const FILS_RAW=[
    "co2-1","co3-1","co4-7"],
   mL:"Avec quoi il joue",mat:["Poupées et animaux","Autos","Dînette","Déguisements","Éléments de la nature","Boîtes et tissus"],
   aide:["Coin maison avec de vrais objets","Jouer avec lui, puis se retirer","Objets polyvalents (boîtes, tissus, bâtons)","Nommer ce qu'il fait semblant","Thèmes selon ses intérêts"]},
- {id:"pro",bes:"Cherche une solution de lui-même",sub:"co",nom:"Résoudre un problème",ic:"🔍",st:[
+ {id:"pro",exp:["Essaie plusieurs façons", "Observe les autres", "Demande de l'aide", "Persévère"],bes:"Cherche une solution de lui-même",sub:"co",nom:"Résoudre un problème",ic:"🔍",st:[
    "co0-3",
    ["Cause à effet : appuie, tire ou ouvre pour faire arriver quelque chose",1,"J","Jouets à boutons, boîtes à surprise"],
    "co1-4",
@@ -115,7 +116,7 @@ const FILS_RAW=[
    ["Garde son équilibre sur une surface instable",4,"D","Coussins, souches, roches plates, main offerte"]],
   mL:"Où il s'équilibre",mat:["Poutre","Bordure","Souche","Roches plates","Coussins","Neige"],
   aide:["Corde au sol pour commencer","Main tendue qu'il choisit de prendre","Jeux de statue","Planches de largeurs variées","Souches et bordures dehors"]},
- {id:"sau",sub:"mg",nom:"Sauts",ic:"🐸",st:[
+ {id:"sau",exp:["Imite les amis", "Invente des sauts", "Saute sur la musique"],sub:"mg",nom:"Sauts",ic:"🐸",st:[
    ["Rebondit, plie les genoux en rythme",1,"R","Comptines, mains tenues"],
    "mg2-3",
    ["Saute d'une petite marche",2,"D","Marche basse, tapis de réception, main au début"],
@@ -171,7 +172,7 @@ const FILS_RAW=[
  {id:"for",sub:"mf",nom:"Force des mains",ic:"💪",st:["mf2-4","mf2-1","mf3-4",["Presse, tord ou déchire avec force (éponge, pâte ferme)",4,"J","Pâte plus ferme, éponges, vaporisateurs d'eau"]],
   mL:"Matériaux",mat:["Pâte à modeler","Pâte ferme","Argile","Pinces","Contenants","Éponges"],
   aide:["Pâtes de résistances variées","Vaporisateurs d'eau","Pinces à linge","Transformer la matière (pétrir, écraser)"]},
- {id:"mat",bes:"Y va de lui-même",sub:"mf",nom:"Mains dans la matière",ic:"🖐️",st:["mf0-6","mf1-6","mf2-6","mf3-6"],
+ {id:"mat",exp:["Regarde avant de toucher", "Touche avec un outil d'abord", "Plonge les mains", "Met en bouche"],bes:"Y va de lui-même",sub:"mf",nom:"Mains dans la matière",ic:"🖐️",st:["mf0-6","mf1-6","mf2-6","mf3-6"],
   mL:"Matières",mat:["Sable","Eau","Boue","Neige","Peinture","Pâte","Colle"],
   aide:["Commencer avec un outil","Laisser regarder d'abord","Petites quantités","Débarbouillette proche","Tablier"]},
  {id:"rou",sub:"mg",nom:"Rouler et transporter",ic:"🚲",st:["mg1-2","mg2-5","mg3-2",["Pédale, tourne et évite les obstacles",4,"D","Parcours de cônes, espace dégagé"]],
@@ -198,7 +199,7 @@ const FILS_RAW=[
  {id:"cnv",noInt:true,sub:"la",nom:"Converser",ic:"🗨️",st:["la0-5","la2-7","la3-3","la3-5","la4-2","la4-6"],
   mL:"Avec qui",mat:["Un ami","Petit groupe","Adulte","Famille"],
   aide:["Questions ouvertes","Attendre sa réponse","Jeux à deux","Parler de ce qu'il fait"]},
- {id:"his",sub:"la",nom:"Histoires et chansons",ic:"📖",st:["la0-6","la1-6","la1-7","la2-6","la3-6","la4-4","la4-7"],
+ {id:"his",exp:["Regarde les images", "Fait les gestes", "Chante", "Raconte à sa façon"],sub:"la",nom:"Histoires et chansons",ic:"📖",st:["la0-6","la1-6","la1-7","la2-6","la3-6","la4-4","la4-7"],
   mL:"Quoi",mat:["Livres","Comptines","Chansons de la famille","Contes","Tambour"],
   aide:["Livres à sa portée","Chansons à gestes","Histoires de la communauté","Relire les mêmes livres"]},
  {id:"arr",noInt:true,sub:"tr",nom:"L'arrivée",ic:"👋",st:["tr0-1","tr0-2","tr0-5","tr1-1","tr2-1"],
