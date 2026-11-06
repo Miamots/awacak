@@ -1,4 +1,4 @@
-const VERSION="awacak-v5";
+const VERSION="awacak-v6";
 const SHELL=["./", "index.html", "reperes.js", "fils.js", "manifest.webmanifest", "img/avatar-castor.png", "img/avatar-cerf.png", "img/avatar-ecureuil.png", "img/avatar-herisson.png", "img/avatar-hibou.png", "img/avatar-lievre.png", "img/avatar-loup.png", "img/avatar-ours.png", "img/avatar-raton.png", "img/avatar-renard.png", "img/enfants.png", "img/icon-192.png", "img/icon-512.png", "img/sph-coeur.webp", "img/sph-corps.webp", "img/sph-esprit.webp", "img/sph-tete.webp"];
 self.addEventListener("install",e=>{e.waitUntil(caches.open(VERSION).then(c=>c.addAll(SHELL)).then(()=>self.skipWaiting()))});
 self.addEventListener("activate",e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k.startsWith("awacak-")&&k!==VERSION).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
